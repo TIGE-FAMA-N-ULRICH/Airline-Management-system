@@ -1,0 +1,23 @@
+CREATE TABLE planes (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    plane_id VARCHAR(50) UNIQUE, -- Unique identifier for each plane
+    manufacturer VARCHAR(255) NOT NULL, -- Manufacturer of the plane
+    model VARCHAR(255) NOT NULL, -- Model of the plane
+    year_of_manufacture INT, -- Year when the plane was manufactured
+    registration_number VARCHAR(50), -- Registration number of the plane
+    maximum_capacity INT NOT NULL, -- Maximum number of passengers
+    maximum_range INT, -- Maximum range the plane can travel
+    fuel_capacity INT, -- Fuel capacity in gallons/liters
+    rental_price_per_hour DECIMAL(10, 2) NOT NULL, -- Rental price per hour
+    availability_status ENUM('available', 'booked', 'maintenance') DEFAULT 'available', -- Status
+    location VARCHAR(255), -- Current or base location of the plane
+    insurance_status BOOLEAN DEFAULT TRUE, -- Insurance status (true for insured, false for not insured)
+    maintenance_history TEXT, -- Maintenance history
+    features TEXT, -- Features like Wi-Fi, entertainment systems, etc.
+    cabin_configuration TEXT, -- Information about cabin layout and seat count
+    description TEXT, -- Additional information or description of the plane
+    rating FLOAT, -- Plane rating based on reviews
+    number_of_reviews INT DEFAULT 0, -- Number of reviews for this plane
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- Record creation time
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP -- Last update time
+);
