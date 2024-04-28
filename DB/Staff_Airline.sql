@@ -44,7 +44,7 @@ CREATE TABLE `Rental_planes` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-ALTER TABLE `Rental_plane`
+ALTER TABLE `Rental_planes`
   ADD PRIMARY KEY (`rental_id`);
 
 ALTER TABLE `Rental_planes`
@@ -85,7 +85,7 @@ CREATE TABLE `Fights` (
   `available_seats` int(11) DEFAULT NULL,
   `stopover_info` text DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-   FOREIGN KEY (`plane_id`) REFERENCES `Commercial_plane`(`plane_id`);
+   FOREIGN KEY (`plane_id`) REFERENCES `Commercial_plane`(`plane_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 ALTER TABLE `Fights`
