@@ -29,7 +29,7 @@ $initialPlaneCount = 6; // Display the first 6 planes initially
     <head>
         <meta charset="UTF-8">
         <title>Staffs_Airways - Aircraft</title>
-        <link rel="stylesheet" href="tailwind.css">
+        <!-- <link rel="stylesheet" href="tailwind.css"> -->
     </head>
     <body>
 
@@ -120,82 +120,56 @@ $initialPlaneCount = 6; // Display the first 6 planes initially
 
             // Plane details display
         ?>
-            <section class="py-24">
-                <div class="container mx-auto px-4">
-                    <div class="-mx-4 flex flex-wrap items-center">
-                        <div class="px-4 w-full lg:w-6/12">
-                            <img src="IMG_6281.JPG" class="w-full" alt="<?= $plane['model'] ?>" />
-                        </div>
-                        <div class="px-4 w-full lg:w-6/12">
-                            <h2 class="font-bold text-xl"><?= $plane['model'] ?></h2>
-                            <p><?= $plane['description'] ?></p>
-                            <p>Capacity: <?= $plane['maximum_capacity'] ?></p>
-                            <p>Speed: <?= $plane['maximum_range'] ?> km/h</p>
-                            <p>Rating: <?= $plane['rating'] ?></p>
-                            <p>Reviews: <?= $plane['number_of_reviews'] ?></p>
-                            <p>Rental Price: $<?= $plane['rental_price_per_hour'] ?>/hour</p>
-                        </div>
+        <section class="py-24">
+            <div class="container mx-auto px-4">
+                <div class="-mx-4 flex flex-wrap items-center">
+                    <div class="px-4 w-full lg:w-6/12">
+                        <img src="IMG_6281.JPG" class="w-full" alt="<?= $plane['model'] ?>" />
+                    </div>
+                    <div class="px-4 w-full lg:w-6/12">
+                        <h2 class="font-bold text-xl"><?= $plane['model'] ?></h2>
+                        <p><?= $plane['description'] ?></p>
+                        <p>Capacity: <?= $plane['maximum_capacity'] ?></p>
+                        <p>Speed: <?= $plane['maximum_range'] ?> km/h</p>
+                        <p>Rating: <?= $plane['rating'] ?></p>
+                        <p>Reviews: <?= $plane['number_of_reviews'] ?></p>
+                        <p>Rental Price: $<?= $plane['rental_price_per_hour'] ?>/hour</p>
                     </div>
                 </div>
-            </section>
+            </div>
+        </section>
 
-            <!-- Rental Form -->
-            <section class="py-24">
-                <div class="container mx-auto px-4">
-                    <h3 class="font-bold text-2xl">Rent This Plane</h3>
-                    <form action="book_plane.php" method="POST">
-                        <input type="hidden" name="plane_id" value="<?= $plane_id ?>">
-                        <!-- Form fields for departure, arrival, rental date, rental time, etc. -->
-                        <div class="flex flex-wrap">
-                            <div class="w-full md:w-6/12">
-                                <label for="departure">Departure</label>
-                                <input type="text" name="departure_location" required>
-                            </div>
-                            <div class="w-full md:w-6/12">
-                                <label for="arrival">Arrival</label>
-                                <input type="text" name="arrival_location" required>
-                            </div>
-                            <div class="w-full md:w-6/12">
-                                <label for="rental_date">Rental Date</label>
-                                <input type="date" name="rental_date" required>
-                            </div>
-                            <div class="w-full md:w-6/12">
-                                <label for="rental_time">Rental Time</label>
-                                <input type="time" name="rental_time" required>
-                            </div>
-                        </div>
-                        <button type="submit" class="bg-primary-500 text-white px-4 py-2">Book Now</button>
-                    </form>
-                </div>
-            </section>
-            <section class="plane-rental-form">
-                <div class="container">
-                    <h3 class="section-title">Rent This Plane</h3>
-                    <form action="book_plane.php" method="POST">
-                        <input type="hidden" name="plane_id" value="<?= $plane_id ?>">
-                        <div class="form-group">
-                            <!-- <label for="departure_location">Departure Location</label> -->
-                            <input type="text" name="departure_location" id="departure_location" placeholder="From" required>
-                            <input type="text" name="arrival_location" id="arrival_location" placeholder="TO" required>
-                        </div>
-                        <div class="form-group">
-                            <!-- <label for="arrival_location">Arrival Location</label> -->
-                            <!-- <input type="text" name="arrival_location" id="arrival_location" placeholder="TO" required> -->
-                        </div>
-                        <div class="form-group">
-                            <label for="rental_date">Date & Time</label>
-                            <input type="date" name="rental_date" id="rental_date" required>
-                            <!-- <label for="rental_time">Rental Time</label> -->
-                            <input type="time" name="rental_time" id="rental_time" required>
-                        </div>
-                        <div class="form-group">
-                            <!-- <label for="rental_time">Rental Time</label>
-                            <input type="time" name="rental_time" id="rental_time" required> -->
-                        </div>
-                        <button type="submit" class="btn btn-primary">Book Now</button>
-                    </form>
-                </div>
-            </section>
+        <!-- Rental Form -->
+        
+        
+        <section class="plane-rental-form">
+            <div class="container"stlyle="margin-bottom: 50pxpx;">
+                <h3 class="section-title"><b>Rent This Plane</b></h3>
+                <form action="book_plane.php" method="POST">
+                    <input type="hidden" name="plane_id" value="<?= $plane_id ?>">
+                    <div class="form-group">
+                        <!-- <label for="departure_location">Departure Location</label> -->
+                        <input type="text" name="departure_location" id="departure_location" placeholder="From" required>
+                        <input type="text" name="arrival_location" id="arrival_location" placeholder="TO" required>
+                    </div>
+                    <div class="form-group">
+                        <!-- <label for="arrival_location">Arrival Location</label> -->
+                        <!-- <input type="text" name="arrival_location" id="arrival_location" placeholder="TO" required> -->
+                    </div>
+                    <div class="form-group">
+                        <label for="rental_date">Date & Time</label>
+                        <input type="date" name="rental_date" id="rental_date" required>
+                        <!-- <label for="rental_time">Rental Time</label> -->
+                        <input type="time" name="rental_time" id="rental_time" required>
+                    </div>
+                    <div class="form-group">
+                        <!-- <label for="rental_time">Rental Time</label>
+                        <input type="time" name="rental_time" id="rental_time" required> -->
+                    </div>
+                    <button type="submit" class="btn btn-primary">Book Now</button>
+                </form>
+            </div>
+        </section>
 
 
 
