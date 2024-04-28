@@ -1,3 +1,5 @@
+Create database Staff_Airline;
+use Staff_Airline;
 
 CREATE TABLE `Users` (
   `user_id` int(11) NOT NULL,
@@ -8,14 +10,14 @@ CREATE TABLE `Users` (
   `created_at` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-
 ALTER TABLE `Users`
   ADD PRIMARY KEY (`user_id`);
-
 
 ALTER TABLE `Users`
   MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
+
+
 
 CREATE TABLE `Fights` (
   `flight_id` int(11) NOT NULL,
@@ -38,10 +40,14 @@ CREATE TABLE `Fights` (
 ALTER TABLE `Fights`
   ADD PRIMARY KEY (`flight_id`);
 
---
 ALTER TABLE `Fights`
   MODIFY `flight_id` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
+
+
+
+
+
 
 CREATE TABLE `Rental_planes` (
   `rental_id` int(11) NOT NULL,
@@ -62,10 +68,8 @@ CREATE TABLE `Rental_planes` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-
 ALTER TABLE `Rental_planes`
   ADD PRIMARY KEY (`rental_id`);
-
 
 ALTER TABLE `Rental_planes`
   MODIFY `rental_id` int(11) NOT NULL AUTO_INCREMENT;
