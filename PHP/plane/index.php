@@ -327,7 +327,7 @@
                             echo "
                             <div class='p-3 w-full md:w-6/12 lg:w-4/12'>
                                 <div class='bg-white border shadow-md text-gray-500'>
-                                    <a href='#'>
+                                    <a href='plane_detail.php?plane_id=${plane['plane_id']}'>
                                         <img src='IMG_6281.JPG' class='hover:opacity-90 w-full' alt='Plane' width='600' height='450' />
                                     </a>
                                     <div class='p-6'>
@@ -350,7 +350,8 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>";
+                            </div>
+                        ";
                         }
                         ?>
                     </div>
@@ -385,30 +386,31 @@
                             planeDiv.className = "p-3 w-full md:w-6/12 lg:w-4/12";
 
                             planeDiv.innerHTML = `
-                                <div class='bg-white border shadow-md text-gray-500'>
-                                    <a href='#'>
-                                        <img src='IMG_6289.JPG' class='hover:opacity-90 w-full' alt='Plane' width='600' height='450' />
-                                    </a>
-                                    <div class='p-6'>
-                                        <h4 class='font-bold mb-2 text-gray-900 text-xl'>
-                                            <a href='#' class='hover:text-gray-500'>${plane['model']}</a>
-                                        </h4>
-                                        <p>${plane['description']}</p>
-                                        <hr class='border-gray-200 my-4' />
-                                        <div class='flex items-center justify-between'>
-                                            <div class='inline-flex items-center py-1 space-x-1'>
-                                                <span>${plane['rating']}</span>
-                                                <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor' width='1.125em' height='1.125em' class='text-primary-500'>
-                                                    <g>
-                                                        <path d='M12 18.26l-7.053 3.948 1.575-7.928L.587 8.792l8.027-.952L12 .5l3.386 7.34 8.027.952-5.935 5.488 1.575 7.928z'></path>
-                                                    </g>
-                                                </svg>
-                                                <span>(${plane['number_of_reviews']} reviews)</span>
-                                            </div>
-                                            <p class='font-bold text-gray-900'>$${plane['rental_price_per_hour']}/h </p>
+                            <div class='bg-white border shadow-md text-gray-500'>
+                                <a href='plane_detail.php?plane_id=${plane['plane_id']}'>
+                                    <img src='IMG_6308.WEBP' class='hover:opacity-90 w-full' alt='Plane' width='600' height='450' />
+                                </a>
+
+                                <div class='p-6'>
+                                    <h4 class='font-bold mb-2 text-gray-900 text-xl'>
+                                        <a href='plane_detail.php?plane_id=${plane['plane_id']}' class='hover:text-gray-500'>${plane['model']}</a>
+                                    </h4>
+                                    <p class='mb-2 text-sm'>${plane['description']}</p>
+                                    <hr class='border-gray-200 my-4' />
+                                    <div class='flex items-center justify-between'>
+                                        <div class='inline-flex items-center py-1 space-x-1'>
+                                            <span>${plane['rating']}</span>
+                                            <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor' width='1.125em' height='1.125em' class='text-primary-500'>
+                                                <g>
+                                                    <path d='M12 18.26l-7.053 3.948 1.575-7.928L.587 8.792l8.027-.952L12 .5l3.386 7.34 8.027.952-5.935 5.488 1.575 7.928z'></path>
+                                                </g>
+                                            </svg>
+                                            <span>(${plane['number_of_reviews']} reviews)</span>
                                         </div>
+                                        <p class='font-bold text-gray-900'>\$${plane['rental_price_per_hour']}/h</p>
                                     </div>
-                                </div>`;
+                                </div>
+                            </div>`;
 
                             container.appendChild(planeDiv);
                         }
