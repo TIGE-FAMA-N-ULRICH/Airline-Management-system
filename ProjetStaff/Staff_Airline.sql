@@ -246,28 +246,38 @@ INSERT INTO Commercial_plane (manufacturer, year_of_manufacture, model, registra
 
 
 
-CREATE TABLE `Fights` (
+CREATE TABLE `Flights` (
   `flight_id` int(11) NOT NULL,
   `plane_id` int(11) NOT NULL,
   `airline` varchar(255) NOT NULL,
   `flight_number` varchar(255) NOT NULL,
-  `departure_airport` varchar(255) NOT NULL,
-  `arrival_airport` varchar(255) NOT NULL,
+  `departure_airport`  int NOT NULL,
+  `arrival_airport`  int NOT NULL,
   `departure_datetime` datetime NOT NULL,
   `arrival_datetime` datetime NOT NULL,
   `flight_duration` time DEFAULT NULL,
-  `aircraft_type` varchar(255) DEFAULT NULL,
   `flight_status` varchar(50) DEFAULT NULL,
   `ticket_price` decimal(10,2) DEFAULT NULL,
   `available_seats` int(11) DEFAULT NULL,
   `stopover_info` text DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-   FOREIGN KEY (`plane_id`) REFERENCES `Commercial_plane`(`plane_id`)
+   FOREIGN KEY (`plane_id`) REFERENCES `Commercial_plane`(`plane_id`),
+   FOREIGN KEY (`departure_airport`) REFERENCES `Airports`(`airport_id`),
+  FOREIGN KEY (`arrival_airport`) REFERENCES `Airports`(`airport_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-ALTER TABLE `Fights`
+ALTER TABLE `Flights`
   ADD PRIMARY KEY (`flight_id`);
 
-ALTER TABLE `Fights`
+ALTER TABLE `Flights`
   MODIFY `flight_id` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
+
+INSERT INTO Flights (plane_id, airline, flight_number, departure_airport, arrival_airport, departure_datetime, arrival_datetime, flight_duration, flight_status, ticket_price, available_seats, stopover_info) 
+VALUES 
+(2, 'Delta Airlines', 'DL123', 6, 2, '2024-05-01 08:00:00', '2024-05-01 12:00:00', '04:00:00', 'scheduled', 250.00, 186, 'No stopovers'),
+(6, 'Lufthansa', 'LH101', 26, 27, '2024-05-06 07:30:00', '2024-05-06 13:45:00', '06:15:00', 'scheduled', 500.00, 325, 'One stopover in Rome'),
+(10, 'Virgin Atlantic', 'VS123', 6, 23, '2024-05-10 09:30:00', '2024-05-10 17:00:00', '07:30:00', 'scheduled', 650.00, 330, 'One stopover in Sydney'),
+(22, 'Qantas Airways', 'QF012', 23, 7, '2024-05-13 08:20:00', '2024-05-13 16:40:00', '08:20:00', 'scheduled', 700.00, 220, 'One stopover in London'),
+(14, 'KLM Royal Dutch Airlines', 'KL345', 25, 11, '2024-05-14 10:00:00', '2024-05-14 17:30:00', '07:30:00', 'scheduled', 600.00, 335, 'One stopover in Lagos'),
+(18, 'Air Canada', 'AC678', 22, 6, '2024-05-15 13:15:00', '2024-05-15 19:45:00', '06:30:00', 'scheduled', 550.00, 160, 'One stopover in New York');
