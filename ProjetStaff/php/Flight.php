@@ -66,7 +66,7 @@ global $base;
                     echo "<form action='#' method='post'>";
 
 
-                    displayFlights($base, $departureCity, $destinationCity, $departDate, $passengers, "Outbound Flights", "outbound");
+                    displayFlights($base, $departureCity, $destinationCity, $departDate, $passengers, "Departure Flights", "outbound");
 
 
                     if (!empty($returnDate)) {
@@ -84,7 +84,7 @@ global $base;
             }
 
             function displayFlights($db, $fromCity, $toCity, $date, $passengers, $flightType, $flightDirection) {
-                $sql = "SELECT F.flight_number, F.airline, F.departure_datetime, F.arrival_datetime, F.flight_duration, F.ticket_price, F.available_seats, F.stopover_info, F.flight_id
+                $sql = "SELECT F.flight_number, F.airline, F.departure_datetime, F.arrival_datetime, F.flight_duration, F.ticket_price, F.available_seats, F.stopover_info, F.flight_id, A1.airport_name AS departure_airport_name, A2.airport_name AS arrival_airport_name
                         FROM Flights F
                         JOIN Airports A1 ON F.departure_airport = A1.airport_id
                         JOIN Cities C1 ON A1.city_id = C1.city_id
@@ -101,18 +101,20 @@ global $base;
 
                 echo "<h3>$flightType</h3>";
                 if (count($result) > 0) {
-                    echo "<table border='1' cellspacing='0' cellpadding='10'>";
-                    echo "<tr><th>Select</th><th>Flight Number</th><th>Airline</th><th>Departure</th><th>Arrival</th><th>Duration</th><th>Price</th><th>Available Seats</th><th>Stopover Info</th></tr>";
-                    foreach ($result as $row) {
-                        echo "<tr><td><input type='radio' name='flight_$flightDirection' value='" . $row['flight_id'] . "'></td><td>" .
-                             htmlspecialchars($row['flight_number']) . "</td><td>" .
-                             htmlspecialchars($row['airline']) . "</td><td>" .
-                             htmlspecialchars($row['departure_datetime']) . "</td><td>" .
-                             htmlspecialchars($row['arrival_datetime']) . "</td><td>" .
-                             htmlspecialchars($row['flight_duration']) . "</td><td>" .
-                             htmlspecialchars($row['ticket_price']) . "</td><td>" .
-                             htmlspecialchars($row['available_seats']) . "</td><td>" .
-                             htmlspecialchars($row['stopover_info']) ?: 'No stopovers' . "</td></tr>";
+                  echo "<table border='1' cellspacing='0' cellpadding='10'>";
+                  echo "<tr><th>Select</th><th>Flight Number</th><th>Airline</th><th>Departure Airport</th><th>Arrival Airport</th><th>Departure</th><th>Arrival</th><th>Duration</th><th>Price</th><th>Available Seats</th><th>Stopover Info</th></tr>";
+                  foreach ($result as $row) {
+                      echo "<tr><td><input type='radio' name='flight_$flightDirection' value='" . $row['flight_id'] . "'></td><td>" .
+                           htmlspecialchars($row['flight_number']) . "</td><td>" .
+                           htmlspecialchars($row['airline']) . "</td><td>" .
+                           htmlspecialchars($row['departure_airport_name']) . "</td><td>" .
+                           htmlspecialchars($row['arrival_airport_name']) . "</td><td>" .
+                           htmlspecialchars($row['departure_datetime']) . "</td><td>" .
+                           htmlspecialchars($row['arrival_datetime']) . "</td><td>" .
+                           htmlspecialchars($row['flight_duration']) . "</td><td>" .
+                           htmlspecialchars($row['ticket_price']) . "</td><td>" .
+                           htmlspecialchars($row['available_seats']) . "</td><td>" .
+                           htmlspecialchars($row['stopover_info']) ?: 'No stopovers' . "</td></tr>";
                     }
                     echo "</table>";
                 } else {
