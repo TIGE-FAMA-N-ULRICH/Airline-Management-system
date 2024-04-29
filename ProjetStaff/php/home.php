@@ -53,8 +53,8 @@ global $base;
         <div class="form-container">
             <div class="booking-form show" id="book-flight-form">
               <h2>Book a Flight</h2>
-              <form action="#" method="post" id="flight-form">
-                  <input type="checkbox" id="one-way" name="trip-type" value="one-way" checked>
+              <form action="Flight.php" method="post" id="flight-form">
+                  <input type="checkbox" id="one-way" name="trip-type" value="one-way" >
                   <label for="one-way">One Way</label><br><br>
                   <div class="row">
                       <div class="col">
@@ -87,7 +87,7 @@ global $base;
                       <div class="col">
                           <label for="passengers">Number of Passengers:</label>
                           <div class="passenger-select">
-                              <input type="text" id="passengers" name="passengers" value="1" readonly>
+                              <input type="text" id="passengers" name="passengers" value="1" >
                               <div class="arrow-up"></div>
                               <div class="arrow-down"></div>
                           </div>
