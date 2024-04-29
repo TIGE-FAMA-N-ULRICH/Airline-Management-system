@@ -39,12 +39,21 @@ global $base;
 
             if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 echo "<h1>Flight Search Details</h1>";
-                echo "<p>Trip Type: " . htmlspecialchars($_POST['trip-type']) . " /  From: " . htmlspecialchars($_POST['departure-city']) . " /  To: " . htmlspecialchars($_POST['destination-city']) . " /  Departure Date: " . htmlspecialchars($_POST['depart']) . " /  Return Date: " . (isset($_POST['return']) && !empty($_POST['return']) ? htmlspecialchars($_POST['return']) : "N/A") . " /  Class: " . htmlspecialchars($_POST['class']) . " /  Number of Passengers: " . htmlspecialchars($_POST['passengers']) . "</p>";
+                echo "<p>Trip Type: " . htmlspecialchars(isset($_POST['trip-type']) ? $_POST['trip-type'] : "Two Ways") .
+                     " / From: " . htmlspecialchars(isset($_POST['departure-city']) ? $_POST['departure-city'] : "Unknown") .
+                     " / To: " . htmlspecialchars(isset($_POST['destination-city']) ? $_POST['destination-city'] : "Unknown") .
+                     " / Departure Date: " . htmlspecialchars(isset($_POST['depart']) ? $_POST['depart'] : "Not set") .
+                     " / Return Date: " . (isset($_POST['return']) && !empty($_POST['return']) ? htmlspecialchars($_POST['return']) : "N/A") .
+                     " / Class: " . htmlspecialchars(isset($_POST['class']) ? $_POST['class'] : "Not set") .
+                     " / Number of Passengers: " . htmlspecialchars(isset($_POST['passengers']) ? $_POST['passengers'] : "Not specified") . "</p>";
 
 
             }
             if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
+                try {
+                    $base = new PDO("mysql:host=localhost;dbname=Staff_Airline", "root", "");
+                    $base->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 
                     $departureCity = $_POST['departure-city'];
@@ -54,17 +63,28 @@ global $base;
                     $passengers = $_POST['passengers'];
 
 
-                    displayFlights($base, $departureCity, $destinationCity, $departDate, $passengers, "Departure Flights");
+                    echo "<form action='#' method='post'>";
+
+
+                    displayFlights($base, $departureCity, $destinationCity, $departDate, $passengers, "Outbound Flights", "outbound");
 
 
                     if (!empty($returnDate)) {
-                        displayFlights($base, $destinationCity, $departureCity, $returnDate, $passengers, "Return Flights");
+                        displayFlights($base, $destinationCity, $departureCity, $returnDate, $passengers, "Return Flights", "return");
                     }
 
+
+                    echo "<br><br><br>";
+                    echo "<button type='submit'>Validate Selection</button>";
+                    echo "</form>";
+
+                } catch(PDOException $e) {
+                    echo "Error: " . $e->getMessage();
+                }
             }
 
-            function displayFlights($db, $fromCity, $toCity, $date, $passengers, $flightType) {
-                $sql = "SELECT F.flight_number, F.airline, F.departure_datetime, F.arrival_datetime, F.flight_duration, F.ticket_price, F.available_seats, F.stopover_info
+            function displayFlights($db, $fromCity, $toCity, $date, $passengers, $flightType, $flightDirection) {
+                $sql = "SELECT F.flight_number, F.airline, F.departure_datetime, F.arrival_datetime, F.flight_duration, F.ticket_price, F.available_seats, F.stopover_info, F.flight_id
                         FROM Flights F
                         JOIN Airports A1 ON F.departure_airport = A1.airport_id
                         JOIN Cities C1 ON A1.city_id = C1.city_id
@@ -79,21 +99,20 @@ global $base;
                 $stmt->execute();
                 $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-
                 echo "<h3>$flightType</h3>";
                 if (count($result) > 0) {
                     echo "<table border='1' cellspacing='0' cellpadding='10'>";
-                    echo "<tr><th>Flight Number</th><th>Airline</th><th>Departure</th><th>Arrival</th><th>Duration</th><th>Price</th><th>Available Seats</th><th>Stopover Info</th><th>Action</th></tr>";
+                    echo "<tr><th>Select</th><th>Flight Number</th><th>Airline</th><th>Departure</th><th>Arrival</th><th>Duration</th><th>Price</th><th>Available Seats</th><th>Stopover Info</th></tr>";
                     foreach ($result as $row) {
-                        echo "<tr><td>" . htmlspecialchars($row['flight_number']) . "</td><td>" .
+                        echo "<tr><td><input type='radio' name='flight_$flightDirection' value='" . $row['flight_id'] . "'></td><td>" .
+                             htmlspecialchars($row['flight_number']) . "</td><td>" .
                              htmlspecialchars($row['airline']) . "</td><td>" .
                              htmlspecialchars($row['departure_datetime']) . "</td><td>" .
                              htmlspecialchars($row['arrival_datetime']) . "</td><td>" .
                              htmlspecialchars($row['flight_duration']) . "</td><td>" .
                              htmlspecialchars($row['ticket_price']) . "</td><td>" .
                              htmlspecialchars($row['available_seats']) . "</td><td>" .
-                             htmlspecialchars($row['stopover_info']) ?: 'No stopovers' . "</td>" .
-                             "<td><button type='button'>Select</button></td></tr>";
+                             htmlspecialchars($row['stopover_info']) ?: 'No stopovers' . "</td></tr>";
                     }
                     echo "</table>";
                 } else {
