@@ -336,7 +336,7 @@ VALUES
 
 CREATE TABLE booking_flight (
     booking_id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id INT NOT NULL,
+    user_id INT,
     departure_flight_id INT,
     return_flight_id INT,
     booking_date DATE NOT NULL,
@@ -351,5 +351,9 @@ CREATE TABLE booking_flight (
     FOREIGN KEY (departure_flight_id) REFERENCES flights(flight_id),
     FOREIGN KEY (return_flight_id) REFERENCES flights(flight_id)
 );
+
+
+ALTER TABLE booking_flight
+MODIFY booking_date DATE NOT NULL DEFAULT CURRENT_DATE();
 
 
