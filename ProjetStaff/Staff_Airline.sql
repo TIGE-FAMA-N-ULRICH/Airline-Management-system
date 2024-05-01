@@ -237,15 +237,6 @@ INSERT INTO Commercial_plane (manufacturer, year_of_manufacture, model, registra
 
 
 
-
-
-
-
-
-
-
-
-
 CREATE TABLE `Flights` (
   `flight_id` int(11) NOT NULL,
   `plane_id` int(11) NOT NULL,
@@ -342,5 +333,23 @@ VALUES
 (10, 'Turkish Airlines', 'TK890', 27, 37, '2023-05-10 10:00:00', '2023-05-10 14:00:00', '04:00:00', 'completed', 330.00, 2, NULL);
 
 
+
+CREATE TABLE booking_flight (
+    booking_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    departure_flight_id INT,
+    return_flight_id INT,
+    booking_date DATE NOT NULL,
+    number_of_passengers INT NOT NULL,
+    status ENUM('Confirmed', 'Cancelled') NOT NULL DEFAULT 'Confirmed',
+    price DECIMAL(10, 2),
+    payment_method VARCHAR(50),
+    seats VARCHAR(255),
+    special_requests TEXT,
+    email VARCHAR(255) NOT NULL,  
+    FOREIGN KEY (user_id) REFERENCES Users(user_id),
+    FOREIGN KEY (departure_flight_id) REFERENCES flights(flight_id),
+    FOREIGN KEY (return_flight_id) REFERENCES flights(flight_id)
+);
 
 
