@@ -4,48 +4,42 @@ include 'Base.php';
 global $base;
 ?>
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <title>Staff Airline</title>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Log in</title>
+  <link rel="stylesheet" href="../css/login.css">
+</head>
+<body>
+  <div class="container">
+    <form class="login-form" action="#" method="POST">
+      <h2>Sing in</h2>
+      <div class="input-group">
+        <label for="username">Name</label>
+        <input type="text" name="username" id="username" placeholder="Your username">
+      </div>
 
-  </head>
+      <div class="input-group">
+        <label for="email">E-mail :</label>
+        <input type="email" name="email" id="email" placeholder="Your email">
+      </div>
 
-  <body>
-    <nav class="navbar">
-        <div class="container">
-          <img src="../image/aircraft-removebg-preview.png" alt="Airline Management Logo" class="logo">
-          <ul class="nav-links">
-            <li><a href="home.php">Search Flights</a></li>
-            <li><a href="#">Plan Rental</a></li>
-            <li><a href="#">About Us</a></li>
-            <?php
-            if(isset($_SESSION['user_id'])){
-              echo "<li><a href=\"\">Profile</a></li>";
-              if($_SESSION['admin_id'] == 1){
-                echo "<li><a href=\"\">Admin</a></li>";
-              }
-              echo "<li><a href=\"Logout.php\">Logout</a></li>";
-            }
-            else {
-              echo "<li><a href=\"Login.php\">Log In</a></li>
-                    <li id=\"sign-in\"><a href=\"Registration.php\">Sign In</a></li>";
-            }
+      
+      <div class="input-group">
+        <label for="password">password:</label>
+        <input type="password" name="password" id="password" placeholder="Your password">
+      </div>
 
-            ?>
-
-          </ul>
-        </div>
-      </nav>
-      <h1>Registration</h1>
-      <form method="post">
-        <input type="text" name="username" id="username" placeholder="Your username"><br>
-        <input type="email" name="email" id="email" placeholder="Your email"><br>
-        <input type="password" name="password" id="password" placeholder="Your password"><br>
+      <div class="input-group">
+        <label for="password">password:</label>
         <input type="password" name="cpassword" id="cpassword" placeholder="Confirm your password"><br>
-        <input type="submit" name="Registration" id="Registration" value="Register">
-      </form>
-    <?php
+      </div>
+
+      <div class="button">
+        <button type="submit" name="Registration" id="Registration" value="Sing in" class="Registration">Sing in</button>
+      </div>
+      <?php
 
     if(isset($_POST['Registration'])){
 
@@ -68,35 +62,37 @@ global $base;
               if ($password == $cpassword){
                 $new = $base->prepare("INSERT INTO Users(username, email, password) VALUES(:username,:email,:password)");
                 $new->execute(['username' => $username, 'email' => $email, 'password' => $hash]);
-                $error = "<h2>Your registration has been completed</h2>";
+                $error = '<h3 class="yess">Your registration has been completed</h3>';
 
               }
               else{
-                $error = "<h2>Your passwords do not match</h2>";
+                $error = '<h3>Your passwords do not match</h3>';
               }
             }
             else{
-              $error = "<h2>This pseudonym is already used</h2>";
+              $error = '<h3>This pseudonym is already used</h3>';
             }
           }
           else{
-            $error = "<h2>This email is already used</h2>";
+            $error = '<h3>This email is already used</h3>';
           }
       }
       else{
-        $error = "<h2>All fields must be completed</h2>";
+        $error = '<h3>All fields must be completed</h3>';
       }
     }
     if(isset($error)){
       echo $error;
-      echo "<br>";
-      if ($error == "<h2>Your registration has been completed</h2>"){
-        echo "<h2><a href=\"Login.php\">Log in</a></h2>";
-        echo "<br>";
+      if ($error == '<h3 class="yess">Your registration has been completed</h3>'){
+        echo '<h3><a href="Login.php" class="log">Log in</a></h3>';
       }
     }
 
 
     ?>
-  </body>
+    </form>
+    
+   
+  </div>
+</body>
 </html>
