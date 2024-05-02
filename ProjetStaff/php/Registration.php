@@ -8,13 +8,13 @@ global $base;
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Log in</title>
+  <title>sign in</title>
   <link rel="stylesheet" href="../css/login.css">
 </head>
 <body>
   <div class="container">
     <form class="login-form" action="#" method="POST">
-      <h2>Sing in</h2>
+      <h2>Sign in</h2>
       <div class="input-group">
         <label for="username">Name</label>
         <input type="text" name="username" id="username" placeholder="Your username">
@@ -37,7 +37,7 @@ global $base;
       </div>
 
       <div class="button">
-        <button type="submit" name="Registration" id="Registration" value="Sing in" class="Registration">Sing in</button>
+        <button type="submit" name="Registration" id="Registration" value="Sing in" class="Registration">Sign in</button>
       </div>
       <?php
 
