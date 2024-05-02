@@ -351,6 +351,16 @@ CREATE TABLE booking_flight (
     seats VARCHAR(255),
     special_requests TEXT,
     email VARCHAR(255) NOT NULL,  
+    skypriority_outbound` tinyint(1) DEFAULT 0,
+    skypriority_return` tinyint(1) DEFAULT 0,
+  ` checked_baggage_outbound` tinyint(1) DEFAULT 0,
+    checked_baggage_return` tinyint(1) DEFAULT 0,
+   `cabin_baggage_outbound` int(11) DEFAULT 1,
+   `cabin_baggage_return` int(11) DEFAULT 1,
+   `refundable_outbound` tinyint(1) DEFAULT 0,
+   `refundable_return` tinyint(1) DEFAULT 0,
+   `front_seats_outbound` tinyint(1) DEFAULT 0,
+   `front_seats_return` tinyint(1) DEFAULT 0
     FOREIGN KEY (user_id) REFERENCES Users(user_id),
     FOREIGN KEY (departure_flight_id) REFERENCES flights(flight_id),
     FOREIGN KEY (return_flight_id) REFERENCES flights(flight_id)
