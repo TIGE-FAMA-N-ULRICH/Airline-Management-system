@@ -127,3 +127,85 @@ VALUES
 'A single-engine turboprop with high efficiency.', 4.6, 75, '../Img/2621927.jpg');
 
 
+-- Table des Emplacements
+CREATE TABLE Locations (
+  location_id INT PRIMARY KEY AUTO_INCREMENT,
+  location_name VARCHAR(255) NOT NULL,
+  latitude DECIMAL(10, 8),  -- Latitude
+  longitude DECIMAL(11, 8),  -- Longitude
+  country VARCHAR(100),  -- Pays
+  city VARCHAR(100),  -- Ville
+  airport_code VARCHAR(10),  -- Code de l'aéroport (ex : LHR)
+  description TEXT  -- Description de l'emplacement
+);
+
+
+-- Mise à jour de la Table des Avions pour inclure la localisation de base
+ALTER TABLE Rental_planes
+  ADD COLUMN base_location INT,
+  ADD FOREIGN KEY (base_location) REFERENCES Locations(location_id);
+
+CREATE TABLE Bookings (
+  booking_id INT PRIMARY KEY AUTO_INCREMENT,
+  plane_id INT,  -- Clé étrangère liée à Rental_planes
+  customer_id INT,  -- Clé étrangère liée à Customers
+  booking_date DATETIME,  -- Date de la réservation
+  rental_start_date DATETIME,  -- Date de début de location
+  rental_end_date DATETIME,  -- Date de fin de location
+  departure_location INT,  -- Clé étrangère liée à Locations
+  arrival_location INT,  -- Clé étrangère liée à Locations
+  total_price DECIMAL(10, 2),  -- Coût total de la réservation
+  status ENUM('confirmed', 'pending', 'canceled'),  -- Statut de la réservation
+  notes TEXT,
+  FOREIGN KEY (plane_id) REFERENCES Rental_planes(rental_id),
+  FOREIGN KEY (customer_id) REFERENCES Users(user_id),
+  FOREIGN KEY (departure_location) REFERENCES Locations(location_id),
+  FOREIGN KEY (arrival_location) REFERENCES Locations(location_id)
+);
+
+
+INSERT INTO Locations (location_name, latitude, longitude, country, city, airport_code, description) 
+VALUES 
+-- Locations Fixes (pour les avions)
+('Paris - Charles de Gaulle', 49.0097, 2.5479, 'France', 'Paris', 'CDG', 'Principal aéroport de Paris.'),
+('Londres - Heathrow', 51.4700, -0.4543, 'Royaume-Uni', 'Londres', 'LHR', 'Principal aéroport de Londres.'),
+('New York - JFK', 40.6413, -73.7781, 'États-Unis', 'New York', 'JFK', 'Principal aéroport de New York.'),
+('Los Angeles - LAX', 33.9416, -118.4085, 'États-Unis', 'Los Angeles', 'LAX', 'Principal aéroport de Los Angeles.'),
+('Tokyo - Haneda', 35.5494, 139.7798, 'Japon', 'Tokyo', 'HND', 'Principal aéroport de Tokyo.'),
+
+-- Autres Locations
+('San Francisco - SFO', 37.6213, -122.3790, 'États-Unis', 'San Francisco', 'SFO', 'Aéroport international de San Francisco.'),
+('Amsterdam - Schiphol', 52.3105, 4.7683, 'Pays-Bas', 'Amsterdam', 'AMS', 'Principal aéroport des Pays-Bas.'),
+('Hong Kong - HKG', 22.3080, 113.9185, 'Hong Kong', 'Hong Kong', 'HKG', 'Aéroport international de Hong Kong.'),
+('Sydney - Kingsford Smith', -33.8688, 151.2093, 'Australie', 'Sydney', 'SYD', 'Principal aéroport de Sydney.'),
+('Dubai - DXB', 25.2532, 55.3657, 'Émirats arabes unis', 'Dubai', 'DXB', 'Aéroport international de Dubai.'),
+
+('Frankfurt - FRA', 50.0379, 8.5622, 'Allemagne', 'Francfort', 'FRA', 'Principal aéroport de Francfort.'),
+('Madrid - MAD', 40.4168, -3.7038, 'Espagne', 'Madrid', 'MAD', 'Principal aéroport de Madrid.'),
+('Barcelona - BCN', 41.2974, 2.0833, 'Espagne', 'Barcelone', 'BCN', 'Principal aéroport de Barcelone.'),
+('Toronto - YYZ', 43.6777, -79.6248, 'Canada', 'Toronto', 'YYZ', 'Aéroport Pearson de Toronto.'),
+('Singapore - SIN', 1.3644, 103.9915, 'Singapour', 'Singapour', 'SIN', 'Principal aéroport de Singapour.');
+
+
+-- Les 5 lieux de départ prédéfinis
+SET @location1 = 1;  -- Identifiant du premier lieu
+SET @location2 = 2;  -- Identifiant du deuxième lieu
+SET @location3 = 3;  -- Identifiant du troisième lieu
+SET @location4 = 4;  -- Identifiant du quatrième lieu
+SET @location5 = 5;  -- Identifiant du cinquième lieu
+
+-- Mise à jour des avions avec une répartition équitable
+-- Les trois premiers avions reçoivent le premier lieu
+UPDATE Rental_planes SET location = @location1 WHERE rental_id IN (1, 2, 3);
+
+-- Les trois suivants reçoivent le deuxième lieu
+UPDATE Rental_planes SET location = @location2 WHERE rental_id IN (4, 5, 6);
+
+-- Les trois suivants reçoivent le troisième lieu
+UPDATE Rental_planes SET location = @location3 WHERE rental_id IN (7, 8, 9);
+
+-- Les trois suivants reçoivent le quatrième lieu
+UPDATE Rental_planes SET location = @location4 WHERE rental_id IN (10, 11, 12);
+
+-- Les trois derniers reçoivent le cinquième lieu
+UPDATE Rental_planes SET location = @location5 WHERE rental_id IN (13, 14, 15);
