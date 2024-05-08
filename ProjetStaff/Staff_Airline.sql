@@ -337,37 +337,42 @@ VALUES
 (10, 'Turkish Airlines', 'TK890', 27, 37, '2023-05-10 10:00:00', '2023-05-10 14:00:00', '04:00:00', 'completed', 330.00, 2, NULL);
 
 
+CREATE TABLE `booking_flight` (
+  `booking_id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) DEFAULT NULL,
+  `departure_flight_id` int(11) DEFAULT NULL,
+  `return_flight_id` int(11) DEFAULT NULL,
+  `booking_date` date NOT NULL DEFAULT curdate(),
+  `number_of_passengers` int(11) NOT NULL,
+  `status` enum('Confirmed','Cancelled') NOT NULL DEFAULT 'Confirmed',
+  `price` decimal(10,2) DEFAULT NULL,
+  `seats` varchar(255) DEFAULT NULL,
+  `special_requests` text DEFAULT NULL,
+  `email` varchar(255) NOT NULL,
+  `hone` varchar(255) NOT NULL,
+  `skypriority_outbound` tinyint(1) DEFAULT 0,
+  `skypriority_return` tinyint(1) DEFAULT 0,
+  `checked_baggage_outbound` tinyint(1) DEFAULT 0,
+  `checked_baggage_return` tinyint(1) DEFAULT 0,
+  `cabin_baggage_outbound` int(11) DEFAULT 1,
+  `cabin_baggage_return` int(11) DEFAULT 1,
+  `refundable_outbound` tinyint(1) DEFAULT 0,
+  `refundable_return` tinyint(1) DEFAULT 0,
+  `front_seats_outbound` tinyint(1) DEFAULT 0,
+  `front_seats_return` tinyint(1) DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-CREATE TABLE booking_flight (
-    booking_id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id INT,
-    departure_flight_id INT,
-    return_flight_id INT,
-    booking_date DATE NOT NULL,
-    number_of_passengers INT NOT NULL,
-    status ENUM('Confirmed', 'Cancelled') NOT NULL DEFAULT 'Confirmed',
-    price DECIMAL(10, 2),
-    payment_method VARCHAR(50),
-    seats VARCHAR(255),
-    special_requests TEXT,
-    email VARCHAR(255) NOT NULL,  
-    skypriority_outbound` tinyint(1) DEFAULT 0,
-    skypriority_return` tinyint(1) DEFAULT 0,
-  ` checked_baggage_outbound` tinyint(1) DEFAULT 0,
-    checked_baggage_return` tinyint(1) DEFAULT 0,
-   `cabin_baggage_outbound` int(11) DEFAULT 1,
-   `cabin_baggage_return` int(11) DEFAULT 1,
-   `refundable_outbound` tinyint(1) DEFAULT 0,
-   `refundable_return` tinyint(1) DEFAULT 0,
-   `front_seats_outbound` tinyint(1) DEFAULT 0,
-   `front_seats_return` tinyint(1) DEFAULT 0
-    FOREIGN KEY (user_id) REFERENCES Users(user_id),
-    FOREIGN KEY (departure_flight_id) REFERENCES flights(flight_id),
-    FOREIGN KEY (return_flight_id) REFERENCES flights(flight_id)
-);
+ALTER TABLE `booking_flight`
+  ADD PRIMARY KEY (`booking_id`),
+  ADD KEY `user_id` (`user_id`),
+  ADD KEY `departure_flight_id` (`departure_flight_id`),
+  ADD KEY `return_flight_id` (`return_flight_id`);
 
 
-ALTER TABLE booking_flight
-MODIFY booking_date DATE NOT NULL DEFAULT CURRENT_DATE();
+ALTER TABLE `booking_flight`
+  ADD CONSTRAINT `booking_flight_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `Users` (`user_id`),
+  ADD CONSTRAINT `booking_flight_ibfk_2` FOREIGN KEY (`departure_flight_id`) REFERENCES `Flights` (`flight_id`),
+  ADD CONSTRAINT `booking_flight_ibfk_3` FOREIGN KEY (`return_flight_id`) REFERENCES `Flights` (`flight_id`);
+
 
 
