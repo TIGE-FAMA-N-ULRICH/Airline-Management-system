@@ -141,35 +141,6 @@ INSERT INTO Airports (airport_name, city_id) VALUES
 
 
 
-CREATE TABLE `Rental_planes` (
-  `rental_id` int(11) NOT NULL,
-  `manufacturer` varchar(255) NOT NULL,
-  `model` varchar(255) NOT NULL,
-  `year_of_manufacture` int(11) DEFAULT NULL,
-  `registration_number` varchar(50) DEFAULT NULL,
-  `maximum_capacity` int(11) NOT NULL,
-  `maximum_range` int(11) DEFAULT NULL,
-  `rental_price_per_hour` decimal(10,2) NOT NULL,
-  `availability_status` enum('available','booked','maintenance') DEFAULT 'available',
-  `maintenance_history` text DEFAULT NULL,
-  `features` text DEFAULT NULL,
-  `detailed_description` text DEFAULT NULL,
-  `description` text DEFAULT NULL,
-  `rating` float DEFAULT NULL,
-  `number_of_reviews` int(11) DEFAULT 0,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
-ALTER TABLE `Rental_planes`
-  ADD PRIMARY KEY (`rental_id`);
-
-ALTER TABLE `Rental_planes`
-  MODIFY `rental_id` int(11) NOT NULL AUTO_INCREMENT;
-COMMIT;
-
-
-
-
 
 CREATE TABLE Commercial_plane (
     plane_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
