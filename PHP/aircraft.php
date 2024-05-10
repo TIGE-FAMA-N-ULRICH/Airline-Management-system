@@ -33,8 +33,8 @@
               <img src="../Img_logo/aircraft-removebg-preview.png" alt="Airline Management Logo" class="logo">
               <ul class="nav-links">
                 <li><a href="home.php">Home</a></li>
-                <li><a href="plane_rental_homepage.php">Rent a Plane</a></li>
-                <li><a href="#">About Us</a></li>
+                <li><a href="aircraft.php">Rent a Plane</a></li>
+                <li><a href="aboutUs.php">About Us</a></li>
                 <?php
                 if(isset($_SESSION['user_id'])){
                   echo "<li><a href=\"\">Profile</a></li>";
@@ -117,40 +117,59 @@
                 <div class="booking-form show" id="rental-plane-form" style="width: 80%; margin-right:-150px;">
                     <h2>Rent a Plane</h2>
                     <form action="#" method="post">
-
-
-                        <div  class="row">
-                            <div class="col">
-                                <label for="return">Departure</label>
-                                <input type="text" id="return" placeholder="From" name="return">
-                            </div>
-                            <div class="col">
-                                <label for="return">Arrival</label>
-                                <input type="text" id="return" placeholder="To"  name="return">
-                            </div>
-                        </div>
+                        <!-- Champs de sélection pour le départ -->
                         <div class="row">
                             <div class="col">
-                                <label for="return">Date & Time</label>
-                                <input type="datetime-local" id="return" name="return" required>
+                                <label for="departure_location">Departure</label>
+                                <select id="departure_location" name="departure_location">
+                                    <option value="Paris - Charles de Gaulle">Paris - Charles de Gaulle</option>
+                                    <option value="Londres - Heathrow">Londres - Heathrow</option>
+                                    <option value="New York - JFK">New York - JFK</option>
+                                    <option value="Los Angeles - LAX">Los Angeles - LAX</option>
+                                    <option value="Tokyo - Haneda">Tokyo - Haneda</option>
+                                </select>
                             </div>
-                            <div class="col">
-                                <label for="class">Passengers</label>
-                                <input type="number" id="return" name="return">
-                            </div>
-                            <!-- <div class="col">
-                                <label for="return"></label>
-                                <input type="time" id="return" name="return">
-                            </div> -->
-                        </div>
-                        <div class="row">
-                            
-                            <div class="col">
 
+                            <!-- Champ de saisie avec autocomplétion pour l'arrivée -->
+                            <div class="col">
+                                <label for="arrival_location">Arrival</label>
+                                <!-- <input list="arrival_suggestions" id="arrival_location" name="arrival_location" placeholder="Enter arrival location" required /> -->
+                                <select id="arrival_suggestions">
+                                    <option value="Paris - Charles de Gaulle">Paris - Charles de Gaulle</option>
+                                    <option value="Londres - Heathrow">Londres - Heathrow</option>
+                                    <option value="New York - JFK">New York - JFK</option>
+                                    <option value="Los Angeles - LAX">Los Angeles - LAX</option>
+                                    <option value="Tokyo - Haneda">Tokyo - Haneda</option>
+                                    <option value="Berlin - Tegel">Berlin - Tegel</option>
+                                    <option value="Madrid - Barajas">Madrid - Barajas</option>
+                                    <option value="Sydney - Kingsford Smith">Sydney - Kingsford Smith</option>
+                                    <option value="Toronto - Pearson">Toronto - Pearson</option>
+                                    <option value="Hong Kong - Chek Lap Kok">Hong Kong - Chek Lap Kok</option>
+                                    <option value="Chicago - O'Hare">Chicago - O'Hare</option>
+                                    <option value="San Francisco - SFO">San Francisco - SFO</option>
+                                    <option value="Dubai - DXB">Dubai - DXB</option>
+                                    <option value="Singapore - Changi">Singapore - Changi</option>
+                                    <option value="Amsterdam - Schiphol">Amsterdam - Schiphol</option>
+                                </select>
                             </div>
                         </div>
+
+                        <!-- Autres champs du formulaire -->
+                        <div class="row">
+                            <div class="col">
+                            <label for="rental_date_time">Date & Time</label>
+                            <input type="datetime-local" id="rental_date_time" name="rental_date_time" required />
+                            </div>
+                            <div class="col">
+                            <label for="passengers">Passengers</label>
+                            <input type="number" id="passengers" name="passengers" min="1" value="1" />
+                            </div>
+                        </div>
+                        
+                        <!-- Bouton de réservation -->
                         <button type="submit">Book Now</button>
-                    </form>
+                        </form>
+
                 </div>
             </div>
         </div>
@@ -254,7 +273,25 @@
                         See Less
                     </button>
                 </div>
+                <div>
+                    <p>
+                        <br></br>
+                    </p>
+                </div>
             </div>
+            <section class="about-us">
+                <div class="about">
+                    <div class="image-container">
+                        <img src="../Img/about.jpeg" alt="About Us Image">
+                    </div>
+                    <div class="content">
+                        <h2>About Us</h2>
+                        <h1>Making Your Dreams Come True</h1>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In euismod ligula ac ex tincidunt rutrum. Pellentesque euismod lorem vitae magna tincidunt tincidunt vel vel sapien.</p>
+                        <button>Discover More</button>
+                    </div>
+                </div>
+            </section>
             <section class="services">
                 <h2>SERVICES</h2>
                 <h3>What We Offer</h3>
@@ -404,70 +441,41 @@
                 });
             </script>
         </section>
-
-       
-
-        
-        <!-- ADDITION !!!!?????-->
-        <section class="statistics">
-            <div class="statistic">
-            <div class="number">80</div>
-            <div class="text">+ Happy Clients</div>
-            </div>
-            <div class="statistic">
-            <div class="number">50</div>
-            <div class="text">+ Expert Pilots</div>
-            </div>
-            <div class="statistic">
-            <div class="number">10</div>
-            <div class="text">+ Win Awards</div>
-            </div>
-        </section>
-
-    
-
         <footer class="footer">
             <div class="footer-content">
-            <div class="footer-section about">
-                <img src="../Img_logo/aircraft__1_-removebg-preview.png" alt="Aircraft Image">
-                <p>With STAFFS_AIRWAYS, you can easily book any ticket you need to travel safely
-                thanks to our detailed system of searching and booking airline tickets.</p>
+                <div class="footer-section about">
+                <img src="../Img_logo/aircraft-removebg-preview.png" alt="Aircraft Image">
+                <p>With STAFFS_AIRWAYS, you can easily book any ticket you need to travel safely thanks to our detailed system of searching and booking airline tickets.</p>
                 <div class="contact">
-                <span><i class="fas fa-phone"></i> +33 234 567 890</span>
-                <span><i class="fas fa-envelope"></i> sttaffsairways@gmail.com</span>
+                    <span><i class="fas fa-phone"></i> +33 234 567 890</span>
+                    <span><i class="fas fa-envelope"></i> sttaffsairways@gmail.com</span>
                 </div>
-                <div class="social">
-                <a href="#"><i class="fab fa-facebook"></i></a>
-                <a href="#"><i class="fab fa-twitter"></i></a>
-                <a href="#"><i class="fab fa-instagram"></i></a>
-                <a href="#"><i class="fab fa-linkedin"></i></a>
                 </div>
-            </div>
-            <div class="footer-section links">
+                <div class="footer-section links">
                 <h2>Quick Links</h2>
                 <ul>
-                <li><a href="../html/home.html">Home</a></li>
-                <li><a href="#">About</a></li>
-                <li><a href="#">Services</a></li>
-                <li><a href="#">Contact</a></li>
+                    <li><a href="home.php">Home</a></li>
+                    <li><a href="aboutUs.php">About</a></li>
+                    <li><a href="#">Services</a></li>
+                    <li><a href="#">Contact</a></li>
                 </ul>
-            </div>
-            <div class="footer-section contact-form">
+                </div>
+                <div class="footer-section contact-form">
                 <h2>Contact Us</h2>
                 <form action="#">
-                <input type="email" name="email" class="text-input contact-input" placeholder="Your email address">
-                <textarea name="message" class="text-input contact-input" placeholder="Your message"></textarea>
-                <button type="submit" class="btn contact-btn">
+                    <input type="email" name="email" class="text-input contact-input" placeholder="Your email address">
+                    <textarea name="message" class="text-input contact-input" placeholder="Your message"></textarea>
+                    <button type="submit" class="btn contact-btn">
                     <i class="fas fa-envelope"></i>
                     Send Message
-                </button>
+                    </button>
                 </form>
-            </div>
+                </div>
             </div>
             <div class="footer-bottom">
-                &copy; 2024 Airline Management System | Designed by Your Name
+                &copy; 2024 Airline Management System | Designed by Nesrine - Caleb - Walid - Ulrich - Walker
             </div>
-        </footer>
+            </footer>
         <style>
             .half-size {
                 width: 100%; /* Reduce image size by half */
@@ -476,7 +484,7 @@
                 /*margin: auto; /* Center the image */
                 border-radius: 45px; /* Add border radius for a smooth look */
                 display: flex;
-                background: linear-gradient(to right, transparent, #ccc);
+                background: linear-gradient(to right, transparent, #DEE2E6);
                 border: none;
             }
             .p-3{
@@ -492,7 +500,7 @@
                 /* border-width: 5px;*/
                 border-radius: 60px; 
                 margin-top: 70px;
-                background: linear-gradient(to left, rgb(59, 59, 59), #ccc)
+                background: linear-gradient(to right, rgb(59, 59, 59), #DEE2E6)
             }
             .detailclass{
                 height: 50%;
@@ -642,6 +650,211 @@
             .body{
                 background-color: #caced5;
             }
+            .about-us {
+                background-color: #f5f5f5;
+                padding: 50px 0;
+                text-align: center;
+                background-color: #d0d1d1;
+                background: linear-gradient(to bottom, transparent, #ccc,#d0d1d1, transparent);
+            }
+            
+            .about-us .about {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                max-width: 1200px;
+                margin: 0 auto;
+            }
+            
+            .about-us .left-content {
+                width: 50%;
+            }
+            
+            .about-us .right-content {
+                width: 50%;
+                text-align: left; /* Aligner le contenu du côté droit à gauche */
+            }
+            
+            .about-us h2 {
+                font-size: 1.8rem;
+                color: #FFC300;
+                text-align: left;
+                margin-bottom: 10px;
+            }
+            
+            .about-us h1 {
+                font-size: 3rem;
+                color: #001d3d;
+                text-align: left;
+                font-weight: bold;
+                margin-bottom: 20px;
+            }
+            
+            .about-us p {
+                font-size: 1.2rem;
+                text-align: left;
+                margin-bottom: 20px;
+            }
+            
+            .about-us button {
+                padding: 14px 28px;
+                font-size: 1.1rem;
+                background-color: #ffc300;
+                color: #001d3d;
+                border: none;
+                border-radius: 25px;
+                cursor: pointer;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                transition: background-color 0.3s, transform 0.2s;
+            }
+            
+            .about-us button:hover {
+                background-color: #FFC300;
+                transform: translateY(-2px);
+            }
+            .footer {
+            background-color: #001d3d;
+            color: #ccc; /* Changer la couleur du texte en #ccc */
+            padding: 50px 0;
+            text-align: left; /* Aligner le texte à gauche */
+            }
+
+            .footer-content {
+            display: flex;
+            justify-content: space-between;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px; /* Ajout de marges à droite et à gauche */
+            }
+
+
+            .footer-section {
+            flex: 1;
+            }
+
+            .footer-section.about {
+            max-width: 300px;
+            }
+
+            .footer-section.about img {
+            width: 100px;
+            margin-bottom: 20px;
+            }
+
+            .footer-section h2 {
+            font-size: 20px;
+            margin-bottom: 15px;
+            }
+
+            .footer-section p {
+            font-size: 14px;
+            line-height: 1.6;
+            }
+
+            .contact span {
+            display: block;
+            margin-bottom: 10px;
+            }
+
+            .links {
+            text-align: center; /* Centrer les liens */
+            }
+
+            .links ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            }
+
+            .links li {
+            margin-bottom: 10px;
+            }
+
+            .links a {
+            color: #ccc; /* Changer la couleur des liens en #ccc */
+            }
+
+            .contact-form input,
+            .contact-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #fff;
+            border-radius: 5px;
+            background-color: transparent;
+            color: #ccc; /* Changer la couleur du texte en #ccc */
+            }
+
+            .contact-form button {
+            width: 100%;
+            padding: 12px 0;
+            border: none;
+            border-radius: 5px;
+            background-color: #FFC300;
+            color: #001d3d;
+            font-size: 16px;
+            cursor: pointer;
+            }
+
+            .footer-bottom {
+            text-align: center;
+            padding: 20px 0;
+            font-size: 14px;
+            }
+
+            .footer-bottom::before {
+            content: '';
+            display: block;
+            margin: 10px auto;
+            width: 50%;
+            height: 1px;
+            background-color: #fff;
+            margin-bottom: 20px; /* Ajout de marge en bas */
+            }
+            /* Ajouter ces règles de style à la fin de votre fichier CSS */
+
+            @media screen and (max-width: 768px) {
+            .footer-content {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .footer-section {
+                margin-bottom: 30px;
+                text-align: center;
+            }
+
+            .footer-section.about {
+                max-width: none;
+            }
+
+            .footer-section h2 {
+                font-size: 18px;
+            }
+
+            .footer-section.about img {
+                width: 80px;
+            }
+            }
+
+            @media screen and (max-width: 576px) {
+            .footer-section h2 {
+                font-size: 16px;
+            }
+
+            .footer-section p {
+                font-size: 12px;
+            }
+
+            .footer-section.about img {
+                width: 60px;
+            }
+
+            .footer-bottom::before {
+                width: 30%;
+            }
+            }
+
         </style>
         <!-- END of ADDITION !!!!?????-->
 
