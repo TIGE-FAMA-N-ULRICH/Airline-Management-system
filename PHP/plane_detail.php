@@ -33,8 +33,8 @@ $initialPlaneCount = 6; // Display the first 6 planes initially
                 <img src="../Img_logo/aircraft-removebg-preview.png" alt="Airline Management Logo" class="logo">
                 <ul class="nav-links">
                     <li><a href="home.php">Home</a></li>
-                    <li><a href="plane_rental_homepage.php">Rent a Plane</a></li>
-                    <li><a href="#">About Us</a></li>
+                    <li><a href="aircraft.php">Rent a Plane</a></li>
+                    <li><a href="aboutUs.php">About Us</a></li>
                     <?php
                     if(isset($_SESSION['user_id'])){
                     echo "<li><a href=\"\">Profile</a></li>";
@@ -144,17 +144,73 @@ $initialPlaneCount = 6; // Display the first 6 planes initially
                                 
                             </div>
                             <div class="booking-form show">
-                                <section class="bg-white py-12">
+                                <!-- Formulaire de réservation -->
+                                <!-- <section class="bg-white py-12">
                                     <div class="container mx-auto px-6" style="max-width: 600px; margin-top: 75px;">
-                                        <form class="rental-form"  action="book_plane.php" method="POST">
+                                        <?php
+                                            // Supposons que `$plane['location_id']` donne l'ID de la localisation de départ
+                                            // Requête pour récupérer toutes les localisations à l'exception de celle de départ
+                                            $query = "SELECT location_name FROM Locations WHERE location_id != :departure_id";
+                                            $stmt = $base->prepare($query);
+                                            $stmt->bindParam(':departure_id', $plane['location_id']);
+                                            $stmt->execute();
+                                            $arrival_locations = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+                                        ?>
+                                        <?php
+                                            // Connexion à la base de données et récupération des détails de l'avion
+                                            include 'Base.php';
+                                            global $base;
+                                            $plane_id = $_GET['plane_id'];
+                                            $query = "SELECT * FROM Rental_planes WHERE rental_id = :plane_id";
+                                            $stmt = $base->prepare($query);
+                                            $stmt->bindParam(':plane_id', $plane_id, PDO::PARAM_INT);
+                                            $stmt->execute();
+                                            $plane = $stmt->fetch(PDO::FETCH_ASSOC);
+
+                                            if (!$plane) {
+                                                echo "Plane not found.";
+                                                exit;
+                                            }
+
+                                            // Récupérer l'emplacement de départ lié à l'avion
+                                            $departure_id = $plane['base_location'];
+                                            $query = "SELECT * FROM Locations WHERE location_id = :departure_id";
+                                            $stmt = $base->prepare($query);
+                                            $stmt->bindParam(':departure_id', $departure_id, PDO::PARAM_INT);
+                                            $stmt->execute();
+                                            $departure_location = $stmt->fetch(PDO::FETCH_ASSOC);
+
+                                            if (!$departure_location) {
+                                                echo "Departure location not found.";
+                                                exit;
+                                            }
+
+                                            // Récupérer toutes les autres locations pour le formulaire déroulant
+                                            $query = "SELECT location_id, location_name FROM Locations WHERE location_id != :departure_id";
+                                            $stmt = $base->prepare($query);
+                                            $stmt->bindParam(':departure_id', $departure_id, PDO::PARAM_INT);
+                                            $stmt->execute();
+                                            $arrival_locations = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                                        ?>
+
+                                        <-!-- <form class="rental-form" action="planeBooking.php" method="POST">
                                             <input type="hidden" name="plane_id" value="<?= $plane_id ?>">
                                             <div class="flex justify-between">
-                                                <div class="mb-4">
-                                                    <input type="text" name="departure_location" placeholder="Departure Location" class="form-input w-full border-gray-300 rounded-lg" required>
+                                                <div class="mb-4 w-full">
+                                                    <input type="hidden" name="plane_id" value="<?= $plane['rental_id'] ?>">
+                                                    <label for="departure_location" class="text-gray-700">Departure Location:</label>
+                                                    <input type="hidden" name="departure_location" value="<?= $departure_location['location_id'] ?>" class="form-input w-full border-gray-300 rounded-lg" readonly>
                                                 </div>
-                                                <div class="mb-4">
-                                                    <input type="text" name="arrival_location" placeholder="Arrival Location" class="form-input w-full border-gray-300 rounded-lg" required>
+                                                <div class="mb-4 w-full">
+                                                    <label for="arrival_location" class="text-gray-700">Arrival Location:</label>
+                                                    <select name="arrival_location" class="form-input w-full border-gray-300 rounded-lg" required>
+                                                    //<?php foreach ($arrival_locations as $location): ?>
+                                                        <option value="<?= $location['location_id'] ?>"><?= $location['location_name'] ?></option>
+                                                    <?php endforeach; ?>
+                                                    </select>
                                                 </div>
+
                                             </div>
                                             <div class="flex justify-between">
                                                 <div class="mb-4 w-1/2 pr-2">
@@ -164,15 +220,153 @@ $initialPlaneCount = 6; // Display the first 6 planes initially
                                                 <div class="mb-4 w-1/2 pl-2">
                                                     <label for="rental_time" class="text-gray-700">Time:</label>
                                                     <input type="time" name="rental_time" class="form-input w-full border-gray-300 rounded-lg" required>
-                                                </div>
+                                                    </div>
                                             </div>
                                             <div>
-                                            <button type="submit" class="bg-primary-500 text-white px-4 py-2 rounded-lg hover:bg-primary-600">Book This Plane Now</button>
+                                                <button type="submit" class="bg-primary-500 text-white px-4 py-2 rounded-lg hover:bg-primary-600">Book This Plane Now</button>
                                             </div>
-                                            
+                                        </form> -!->
+                                        <form class="rental-form" action="planeBooking.php" method="POST">
+                                            <-!-- ID de l'avion -!->
+                                            <input type="hidden" name="plane_id" value="<?= $plane['rental_id'] ?>">
+
+                                            <div class="flex justify-between">
+                                                <-!-- Lieu de départ -!->
+                                                <div class="mb-4 w-full">
+                                                    <label for="departure_location" class="text-gray-700">Departure Location:</label>
+                                                    <input type="text" name="departure_location" 
+                                                        value="<?= $plane['location_name'] ?>" 
+                                                        class="form-input w-full border-gray-300 rounded-lg" 
+                                                        readonly>
+                                                </div>
+
+                                                <-!-- Lieu d'arrivée -!->
+                                                <div class="mb-4 w-full">
+                                                    <label for="arrival_location" class="text-gray-700">Arrival Location:</label>
+                                                    <select name="arrival_location" class="form-input w-full border-gray-300 rounded-lg" required>
+                                                        <-!-- Liste des lieux d'arrivée, à l'exception du lieu de départ -!->
+                                                        <?php foreach ($arrival_locations as $location): ?>
+                                                            <option value="<?= $location['location_id'] ?>"><?= $location['location_name'] ?></option>
+                                                        <?php endforeach; ?>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            - Date et Heure de la location !
+                                            <div class="flex justify-between">
+                                                <div class="mb-4 w-1/2 pr-2">
+                                                    <label for="rental_date" class="text-gray-700">Date:</label>
+                                                    <input type="date" name="rental_date" 
+                                                        class="form-input w-full border-gray-300 rounded-lg" 
+                                                        required>
+                                                </div>
+                                                <div class="mb-4 w-1/2 pl-2">
+                                                    <label for="rental_time" class="text-gray-700">Time:</label>
+                                                    <input type="time" name="rental_time" 
+                                                        class="form-input w-full border-gray-300 rounded-lg" 
+                                                        required>
+                                                </div>
+                                            </div>
+
+                                            <-!-- Bouton de soumission -!->
+                                            <div>
+                                                <button type="submit" class="bg-primary-500 text-white px-4 py-2 rounded-lg hover:bg-primary-600">
+                                                    Book This Plane Now
+                                                </button>
+                                            </div>
                                         </form>
+
+                                    </div>
+                                </section> -->
+                                <section class="bg-white py-12">
+                                    <div class="container mx-auto px-6" style="max-width: 600px; margin-top: 75px;">
+                                        <?php
+                                            // Récupérer l'avion et ses détails
+                                            include 'Base.php';
+                                            global $base;
+
+                                            $plane_id = $_GET['plane_id'];
+                                            $stmt = $base->prepare("SELECT * FROM Rental_planes WHERE rental_id = :plane_id");
+                                            $stmt->bindParam(':plane_id', $plane_id, PDO::PARAM_INT);
+                                            $stmt->execute();
+                                            $plane = $stmt->fetch(PDO::FETCH_ASSOC);
+
+                                            if (!$plane) {
+                                                echo "Plane not found.";
+                                                exit;
+                                            }
+
+                                            // Récupérer l'emplacement de départ associé à l'avion
+                                            $departure_id = $plane['base_location'];
+                                            $stmt = $base->prepare("SELECT * FROM Locations WHERE location_id = :departure_id");
+                                            $stmt->bindParam(':departure_id', $departure_id, PDO::PARAM_INT);
+                                            $stmt->execute();
+                                            $departure_location = $stmt->fetch(PDO::FETCH_ASSOC);
+
+                                            if (!$departure_location) {
+                                                echo "Departure location not found.";
+                                                exit;
+                                            }
+
+                                            // Récupérer toutes les autres locations pour le formulaire déroulant
+                                            $stmt = $base->prepare("SELECT location_id, location_name FROM Locations WHERE location_id != :departure_id");
+                                            $stmt->bindParam(':departure_id', $departure_id, PDO::PARAM_INT);
+                                            $stmt->execute();
+                                            $arrival_locations = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                                        ?>
+
+                                        <form class="rental-form" action="planeBooking.php" method="POST">
+                                            <input type="hidden" name="plane_id" value="<?= $plane['rental_id'] ?>">
+
+                                            <div class="flex justify-between">
+                                                <!-- Lieu de départ -->
+                                                <div class="mb-4 w-full">
+                                                    <label for="departure_location" class="text-gray-700">Departure Location:</label>
+                                                    <input type="text" name="departure_location" 
+                                                        value="<?= $departure_location['location_name'] ?>" 
+                                                        class="form-input w-full border-gray-300 rounded-lg" 
+                                                        readonly>
+                                                </div>
+
+                                                <!-- Lieu d'arrivée -->
+                                                <div class="mb-4 w-full">
+                                                    <label for="arrival_location" class="text-gray-700">Arrival Location:</label>
+                                                    <select name="arrival_location" class="form-input w-full border-gray-300 rounded-lg" required>
+                                                        <!-- Liste des lieux d'arrivée, à l'exception du lieu de départ -->
+                                                        <?php foreach ($arrival_locations as $location): ?>
+                                                            <option value="<?= $location['location_id'] ?>"><?= $location['location_name'] ?></option>
+                                                        <?php endforeach; ?>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <!-- Date et Heure de la location -->
+                                            <div class="flex justify-between">
+                                                <div class="mb-4 w-1/2 pr-2">
+                                                    <label for="rental_date" class="text-gray-700">Date:</label>
+                                                    <input type="date" name="rental_date" 
+                                                        class="form-input w-full border-gray-300 rounded-lg" 
+                                                        required>
+                                                </div>
+                                                <div class="mb-4 w-1/2 pl-2">
+                                                    <label for="rental_time" class="text-gray-700">Time:</label>
+                                                    <input type="time" name="rental_time" 
+                                                        class="form-input w-full border-gray-300 rounded-lg" 
+                                                        required>
+                                                </div>
+                                            </div>
+
+                                            <!-- Bouton de soumission -->
+                                            <div>
+                                                <button type="submit" class="bg-primary-500 text-white px-4 py-2 rounded-lg hover:bg-primary-600">
+                                                    Book This Plane Now
+                                                </button>
+                                            </div>
+                                        </form>
+
                                     </div>
                                 </section>
+
                             </div>
                             
                         </div>
@@ -283,6 +477,9 @@ $initialPlaneCount = 6; // Display the first 6 planes initially
                 }
                 .flex{
                     font-size: 15px;
+                }
+                input{
+                    background-color: transparent;
                 }
             </style>
 
