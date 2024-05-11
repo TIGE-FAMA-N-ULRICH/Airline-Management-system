@@ -325,7 +325,7 @@ CREATE TABLE `booking_flight` (
   `refundable` tinyint(1) DEFAULT 0,
   `front_seats` tinyint(1) DEFAULT 0,
   `insurance` int(11) DEFAULT 0,
-  `class` tinyint(1) DEFAULT 0
+  `class` int(11) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 ALTER TABLE `booking_flight`
