@@ -317,7 +317,6 @@ CREATE TABLE `booking_flight` (
   `status` enum('Confirmed','Cancelled') NOT NULL DEFAULT 'Confirmed',
   `price` decimal(10,2) DEFAULT NULL,
   `seats` varchar(255) DEFAULT NULL,
-  `special_requests` text DEFAULT NULL,
   `email` varchar(255) NOT NULL,
   `phone` varchar(255) NOT NULL,
   `skypriority` tinyint(1) DEFAULT 0,
