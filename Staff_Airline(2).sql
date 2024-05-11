@@ -308,7 +308,7 @@ VALUES
 
 
 CREATE TABLE `booking_flight` (
-  `booking_id` int(11) NOT NULL AUTO_INCREMENT,
+  `booking_id` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
   `user_id` int(11) DEFAULT NULL,
   `departure_flight_id` int(11) DEFAULT NULL,
   `return_flight_id` int(11) DEFAULT NULL,
@@ -331,7 +331,6 @@ CREATE TABLE `booking_flight` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 ALTER TABLE `booking_flight`
-  ADD PRIMARY KEY (`booking_id`),
   ADD KEY `user_id` (`user_id`),
   ADD KEY `departure_flight_id` (`departure_flight_id`),
   ADD KEY `return_flight_id` (`return_flight_id`);
@@ -540,16 +539,16 @@ SET @location5 = 5;  -- Identifiant du cinquième lieu
 
 -- Mise à jour des avions avec une répartition équitable
 -- Les trois premiers avions reçoivent le premier lieu
-UPDATE Rental_planes SET location = @location1 WHERE rental_id IN (1, 2, 3);
+UPDATE Rental_planes SET base_location = @location1 WHERE rental_id IN (1, 2, 3);
 
 -- Les trois suivants reçoivent le deuxième lieu
-UPDATE Rental_planes SET location = @location2 WHERE rental_id IN (4, 5, 6);
+UPDATE Rental_planes SET base_location = @location2 WHERE rental_id IN (4, 5, 6);
 
 -- Les trois suivants reçoivent le troisième lieu
-UPDATE Rental_planes SET location = @location3 WHERE rental_id IN (7, 8, 9);
+UPDATE Rental_planes SET base_location = @location3 WHERE rental_id IN (7, 8, 9);
 
 -- Les trois suivants reçoivent le quatrième lieu
-UPDATE Rental_planes SET location = @location4 WHERE rental_id IN (10, 11, 12);
+UPDATE Rental_planes SET base_location = @location4 WHERE rental_id IN (10, 11, 12);
 
 -- Les trois derniers reçoivent le cinquième lieu
-UPDATE Rental_planes SET location = @location5 WHERE rental_id IN (13, 14, 15);
+UPDATE Rental_planes SET base_location = @location5 WHERE rental_id IN (13, 14, 15);
