@@ -18,14 +18,15 @@ global $base;
           <img src="../image/aircraft-removebg-preview.png" alt="Airline Management Logo" class="logo">
           <ul class="nav-links">
             <li><a href="home.php">Search Flights</a></li>
-            <li><a href="#">Plan Rental</a></li>
-            <li><a href="#">About Us</a></li>
+            <li><a href="aircraft.php">Plan Rental</a></li>
+            <li><a href="aboutUs.php">About Us</a></li>
             <?php
             ini_set('display_errors', 1);
             ini_set('display_startup_errors', 1);
             error_reporting(E_ALL);
 
             if(isset($_SESSION['user_id'])){
+              $user_id = $_SESSION['user_id'];
               echo "<li><a href=\"\">Profile</a></li>";
               if($_SESSION['admin_id'] == 1){
                 echo "<li><a href=\"\">Admin</a></li>";
@@ -35,14 +36,102 @@ global $base;
             else {
               echo "<li><a href=\"Login.php\">Log In</a></li>
                     <li id=\"sign-in\"><a href=\"Registration.php\">Sign In</a></li>";
+              $user_id = null;
             }
+
+
+
+
+
+
+
 
 
             ?>
 
-            <form action="ProcessBooking.php" method="post">
+            <form action="#" method="post">
                 <h3>Payment Details</h3>
-                <!-- Assuming all form fields are securely handled -->
+                <?php
+
+                if ($_SERVER["REQUEST_METHOD"] == "POST"){
+                  $insurance = isset($_POST['selected_insurance']) ? $_POST['selected_insurance'] : null;
+                  $option = isset($_POST['selected_option']) ? $_POST['selected_option'] : null;
+                  $price = isset($_POST['price']) ? $_POST['price'] : null;
+                  $email = isset($_POST['email1']) ? $_POST['email1'] : null;
+                  $first_name = isset($_POST['first_name1']) ? $_POST['first_name1'] : null;
+                  $last_name = isset($_POST['last_name1']) ? $_POST['last_name1'] : null;
+                  $phone = isset($_POST['phone1']) ? $_POST['phone1'] : null;
+                  $selected_outbound = isset($_POST['selected_outbound']) ? $_POST['selected_outbound'] : null;
+                  $selected_return = isset($_POST['selected_return']) ? $_POST['selected_return'] : null;
+                  $class = isset($_POST['class']) ? $_POST['class'] : null;
+                  $passengers = isset($_POST['passengers']) ? $_POST['passengers'] : null;
+                  $seat_number = chr(rand(65, 90)) . rand(1, 30);
+                  if ($class == 'business'){
+                    $classnumber = 1;
+                  }
+                  elseif($class == 'economy'){
+                    $classnumber = 0;
+                  }
+                  if ($option == 'Standard +'){
+                    $price = $price + 50*$passengers;
+                    $skypriority = 0;
+                    $checked_baggage = 1;
+                    $cabin_baggage = 1;
+                    $refundable = 0;
+                    $front_seats = 0;
+                  }
+                  elseif($option == 'Standard Flex'){
+                    $price = $price + 150*$passengers;
+                    $skypriority = 0;
+                    $checked_baggage = 1;
+                    $cabin_baggage = 1;
+                    $refundable = 1;
+                    $front_seats = 0;
+                  }
+                  elseif($option == 'Business Flex'){
+                    $price = $price + 100*$passengers;
+                    $skypriority = 1;
+                    $checked_baggage = 2;
+                    $cabin_baggage = 2;
+                    $refundable = 1;
+                    $front_seats = 1;
+                  }
+                  elseif($option == 'Business'){
+                    $skypriority = 1;
+                    $checked_baggage = 2;
+                    $cabin_baggage = 2;
+                    $refundable = 0;
+                    $front_seats = 1;
+
+                  }
+                  elseif($option == 'Standard'){
+                    $skypriority = 0;
+                    $checked_baggage = 0;
+                    $cabin_baggage = 1;
+                    $refundable = 0;
+                    $front_seats = 0;
+
+                  }
+                  if ($insurance == 'Basic'){
+                    $price = $price + 20*$passengers;
+                    $insurancenumber = 1;
+                  }
+                  elseif($insurance == 'Premium'){
+                    $price = $price + 40*$passengers;
+                    $insurancenumber = 2;
+                  }
+                  elseif($insurance == 'None'){
+                    $insurancenumber = 0;
+
+                  }
+                  echo "<h2>Price : £ ". $price . "</h2>";
+                }
+
+
+                 ?>
+
+
+
                 <label for="cardNumber">Card Number:</label>
                 <input type="text" id="cardNumber" name="cardNumber" required><br>
 
@@ -59,12 +148,28 @@ global $base;
                 <?php
                 foreach ($_POST as $key => $value) {
                     echo "<input type='hidden' name='".htmlspecialchars($key)."' value='".htmlspecialchars($value)."'>";
-                    echo htmlspecialchars($key) . "    " . htmlspecialchars($value);
                 }
                 ?>
 
-                <button type="submit">Confirm Payment</button>
+                <button type="submit" name='confirmPayment'>Confirm Payment</button>
             </form>
+
+            <?php
+
+            if (isset($_POST['confirmPayment'])) {
+                $sql = "INSERT INTO booking_flight (user_id, departure_flight_id, return_flight_id, number_of_passengers, price, seats, email, phone, skypriority, checked_baggage, cabin_baggage, refundable, front_seats, insurance, class) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+                $stmt = $base->prepare($sql);
+                $params = [$user_id, $selected_outbound, $selected_return, $passengers, $price, $seat_number, $email, $phone, $skypriority, $checked_baggage, $cabin_baggage, $refundable, $front_seats, $insurancenumber, $classnumber];
+                if ($stmt->execute($params)) {
+                    echo "Reservation successful!";
+                } else {
+                    echo "Error: " . $base->errorInfo()[2];
+                }
+                header("Location: Successful.php");
+            }
+
+             ?>
 
 
           </ul>

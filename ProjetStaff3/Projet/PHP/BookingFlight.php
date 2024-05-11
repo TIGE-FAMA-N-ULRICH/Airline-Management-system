@@ -126,15 +126,15 @@ global $base;
 
                 echo "<tr><td><input type='radio' name='selected_option' value='Business' checked></td><td>Business</td><td>Yes</td><td>Yes</td><td>Yes</td><td>No</td><td>Yes</td><td>Yes</td><td>".$totalPrice. "</td></tr>";
 
-                echo "<tr><td><input type='radio' name='selected_option' value='Business Flex'></td><td>Business Flex</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td><td>".$totalPrice + 100 . "</td></tr>";
+                echo "<tr><td><input type='radio' name='selected_option' value='Business Flex'></td><td>Business Flex</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td><td>".$totalPrice + 100*$passengers . "</td></tr>";
 
                 echo "</table>";
                 echo "<h3>Insurance Options</h3>";
                 echo "<table border='1'>";
                 echo "<tr><th>Select</th><th>Insurance Type</th><th>Description</th><th>Price</th></tr>";
                 echo "<tr><td><input type='radio' name='selected_insurance' value='None' checked></td><td>None</td><td>No insurance coverage selected</td><td>£0</td></tr>";
-                echo "<tr><td><input type='radio' name='selected_insurance' value='Basic'></td><td>Basic</td><td>Covers lost luggage</td><td>£20</td></tr>";
-                echo "<tr><td><input type='radio' name='selected_insurance' value='Premium'></td><td>Premium</td><td>Includes medical expenses and trip interruption</td><td>£40</td></tr>";
+                echo "<tr><td><input type='radio' name='selected_insurance' value='Basic'></td><td>Basic</td><td>Covers lost luggage</td><td>£". 20*$passengers."</td></tr>";
+                echo "<tr><td><input type='radio' name='selected_insurance' value='Premium'></td><td>Premium</td><td>Includes medical expenses and trip interruption</td><td>£". 40 *$passengers ."</td></tr>";
                 echo "</table>";
                 echo "<br>";
                 echo "<h3>Passenger Details</h3>";
@@ -161,6 +161,7 @@ global $base;
                 foreach ($_POST as $key => $value) {
                     echo "<input type='hidden' name='".htmlspecialchars($key)."' value='".htmlspecialchars($value)."'>";
                 }
+                echo "<input type='hidden' name='price' value='" . $totalPrice . "'>";
 
                 echo "<button type='submit'>Submit Your Choice</button>";
                 echo "</form>";
@@ -174,17 +175,17 @@ global $base;
 
                 echo "<tr><td><input type='radio' name='selected_option' value='Standard' checked></td><td>Standard</td><td>Yes</td><td>No</td><td>No</td><td>No</td><td>No</td><td>No</td><td>".$totalPrice. "</td></tr>";
 
-                echo "<tr><td><input type='radio' name='selected_option' value='Standard +'></td><td>Standard +</td><td>Yes</td><td>Yes</td><td>No</td><td>No</td><td>No</td><td>No</td><td>".$totalPrice + 50 . "</td></tr>";
+                echo "<tr><td><input type='radio' name='selected_option' value='Standard +'></td><td>Standard +</td><td>Yes</td><td>Yes</td><td>No</td><td>No</td><td>No</td><td>No</td><td>".$totalPrice + 50*$passengers . "</td></tr>";
 
-                echo "<tr><td><input type='radio' name='selected_option' value='Standard Flex'></td><td>Standard Flex</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td><td>No</td><td>No</td><td>".$totalPrice + 150 . "</td></tr>";
+                echo "<tr><td><input type='radio' name='selected_option' value='Standard Flex'></td><td>Standard Flex</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td><td>No</td><td>No</td><td>".$totalPrice + 150*$passengers . "</td></tr>";
 
                 echo "</table>";
                 echo "<h3>Insurance Options</h3>";
                 echo "<table border='1'>";
                 echo "<tr><th>Select</th><th>Insurance Type</th><th>Description</th><th>Price</th></tr>";
                 echo "<tr><td><input type='radio' name='selected_insurance' value='None' checked></td><td>None</td><td>No insurance coverage selected</td><td>£0</td></tr>";
-                echo "<tr><td><input type='radio' name='selected_insurance' value='Basic'></td><td>Basic</td><td>Covers lost luggage</td><td>£20</td></tr>";
-                echo "<tr><td><input type='radio' name='selected_insurance' value='Premium'></td><td>Premium</td><td>Includes medical expenses and trip interruption</td><td>£40</td></tr>";
+                echo "<tr><td><input type='radio' name='selected_insurance' value='Basic'></td><td>Basic</td><td>Covers lost luggage</td><td>£". 20*$passengers ."</td></tr>";
+                echo "<tr><td><input type='radio' name='selected_insurance' value='Premium'></td><td>Premium</td><td>Includes medical expenses and trip interruption</td><td>£". 40*$passengers."</td></tr>";
                 echo "</table>";
                 echo "<br>";
                 echo "<h3>Passenger Details</h3>";
@@ -211,6 +212,7 @@ global $base;
                 foreach ($_POST as $key => $value) {
                     echo "<input type='hidden' name='".htmlspecialchars($key)."' value='".htmlspecialchars($value)."'>";
                 }
+                echo "<input type='hidden' name='price' value='" . $totalPrice . "'>";
 
                 echo "<button type='submit'>Submit Your Choice</button>";
                 echo "</form>";
