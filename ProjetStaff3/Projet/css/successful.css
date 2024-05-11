@@ -6,8 +6,9 @@
     top: 0; /* Positionner la barre en haut de la fenêtre */
     width: 100%; /* Largeur de la barre sur toute la largeur de la fenêtre */
     z-index: 1000; /* Assurer que la barre est au-dessus de tout autre contenu */
+    margin-bottom: 100px;
   }
-  
+
   .container {
     display: flex;
     justify-content: space-between;
@@ -16,21 +17,21 @@
     margin: 0 auto;
     padding: 0 20px;
   }
-  
+
   .logo {
     width: 120px; /* Largeur du logo */
     height: auto; /* Maintenir le rapport hauteur/largeur */
   }
-  
+
   .nav-links {
     list-style: none;
     display: flex;
   }
-  
+
   .nav-links li {
     margin-right: 20px;
   }
-  
+
   .nav-links li a {
     text-decoration: none;
     color: #EBEBEB;
@@ -52,7 +53,7 @@
     padding: 50px 0;
     text-align: left; /* Aligner le texte à gauche */
   }
-  
+
   .footer-content {
     display: flex;
     justify-content: space-between;
@@ -60,54 +61,54 @@
     margin: 0 auto;
     padding: 0 20px; /* Ajout de marges à droite et à gauche */
   }
-  
-  
+
+
   .footer-section {
     flex: 1;
   }
-  
+
   .footer-section.about {
     max-width: 300px;
   }
-  
+
   .footer-section.about img {
     width: 100px;
     margin-bottom: 20px;
   }
-  
+
   .footer-section h2 {
     font-size: 20px;
     margin-bottom: 15px;
   }
-  
+
   .footer-section p {
     font-size: 14px;
     line-height: 1.6;
   }
-  
+
   .contact span {
     display: block;
     margin-bottom: 10px;
   }
-  
+
   .links {
     text-align: center; /* Centrer les liens */
   }
-  
+
   .links ul {
     list-style: none;
     padding: 0;
     margin: 0;
   }
-  
+
   .links li {
     margin-bottom: 10px;
   }
-  
+
   .links a {
     color: #ccc; /* Changer la couleur des liens en #ccc */
   }
-  
+
   .contact-form input,
   .contact-form textarea {
     width: 100%;
@@ -118,7 +119,7 @@
     background-color: transparent;
     color: #ccc; /* Changer la couleur du texte en #ccc */
   }
-  
+
   .contact-form button {
     width: 100%;
     padding: 12px 0;
@@ -129,13 +130,13 @@
     font-size: 16px;
     cursor: pointer;
   }
-  
+
   .footer-bottom {
     text-align: center;
     padding: 20px 0;
     font-size: 14px;
   }
-  
+
   .footer-bottom::before {
     content: '';
     display: block;
@@ -144,29 +145,29 @@
     height: 1px;
     background-color: #fff;
     margin-bottom: 20px; /* Ajout de marge en bas */
-  }  
+  }
 
 
 section {
-    max-width: 800px;
-    margin: 0 auto;
+  margin-top: 150px;
+    max-width: 100%;
+
     padding: 40px 20px;
     text-align: center;
     background-color: #f9f9f9;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
-  
+
   section h2 {
     font-size: 28px;
     color: #333;
     margin-bottom: 20px;
   }
-  
+
   section p {
     font-size: 18px;
     line-height: 1.6;
     color: #666;
     margin-bottom: 15px;
   }
-  

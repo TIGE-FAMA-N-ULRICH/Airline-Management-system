@@ -206,6 +206,7 @@ global $base;
                 foreach ($_POST as $key => $value) {
                     echo "<input type='hidden' name='".htmlspecialchars($key)."' value='".htmlspecialchars($value)."'>";
                 }
+                echo "<input type='hidden' name='price' value='" . $totalPrice . "'>";
 
                 echo "<button id='validate' type='submit'>Submit</button>";
                 echo "</form>";

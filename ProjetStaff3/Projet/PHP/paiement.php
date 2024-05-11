@@ -9,9 +9,9 @@
         // Récupérer les valeurs du formulaire
         $plane_id = $_POST['plane_id'];
         $departure_location_name = $_POST['departure_location'];
-        $departure_location_id = $_POST['arrival_location'];
+        $departure_location_name = $_POST['arrival_location'];
         $rental_date = $_POST['rental_date'];
-        $rental_time = $_POST['rental_time'];
+
 
 
 
@@ -62,7 +62,21 @@
 
 
         // ID de l'emplacement d'arrivée (déjà connu)
-        $arrival_location_id = $_POST['arrival_location'];
+        $arrival_location_name = $_POST['arrival_location'];
+
+         // Obtenir l'ID de l'emplacement de départ à partir de son nom
+         $stmt = $base->prepare("SELECT location_id FROM Locations WHERE location_name = :departure_location_name");
+         $stmt->bindParam(':departure_location_name', $arrival_location_name);
+         $stmt->execute();
+         $arrival_location_row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+         // Vérifier si l'emplacement de départ a été trouvé
+         if (!$arrival_location_row) {
+             echo "Erreur : Emplacement de départ non trouvé.";
+             exit;
+         }
+
+        $arrival_location_id = $arrival_location_row['location_id'];
 
         // Obtenez les détails de l'emplacement d'arrivée
         $stmt = $base->prepare("SELECT * FROM Locations WHERE location_id = :arrival_location_id");
@@ -72,7 +86,8 @@
 
         // Vérifier si les détails de l'emplacement d'arrivée ont été trouvés
         if (!$arrival_location) {
-            echo "Erreur : Emplacement d'arrivée non trouvé.";
+            echo "Erreur : Emplacement d'arrivée non trouvé.
+            $arrival_location_id";
             exit;
         }
 
@@ -196,54 +211,79 @@
         <div class="booking20" style="margin-bottom:0">
 
 
-            <div  style="display: flex; width: 100%; justify-content: center">
+            <div  style="display: flex;">
 
-                <div class="px-4" style="margin-right: 100px; margin-left: 100px; display: flex; margin-top: 20px; width: 50%" >
-                    <img src="<?= $plane['image_path']?>" class=" " alt="<?= $plane['model'] ?>"  style=" width: 100%;" />
+                <div class="px-4" style="margin-right: 30px; display: flex; margin-top: 20px; width: 50%" >
+                    <img src="<?= $plane['image_path']?>" class=" " alt="<?= $plane['model'] ?>"  style=" width: 100%; border-radius: 20px" />
                 </div>
                 <div class="w-full " style="; width: 70%;">
 
                     <div tyle="flex">
-                        <h2 class="font-bold">Booking Confirmation</h2>
+                        <h2 class="font-bold">Payment Information</h2>
                     </div>
 
-                    <div class="lotdinf" style="font-size: 12px; backgroud-image: black; margin-bottom: 50px">
 
-                        <div class="" style="margin: 1px">  <!-- Afficher les détails de la réservation -->
+                    <div class="" style="font-size: 12px; margin-bottom: 50px; display: flex">
+
+                        <div class="" style="margin: 1px; display: flex">  <!-- Afficher les détails de la réservation -->
                             <div class="text-lg" style="margin: 20px">
-                                <b>Model:</b> <?= $plane['model'] ?>
+                                <b> <?= $plane['model'] ?></b>
                             </div>
                             <div class="text-lg" style="margin: 20px">
-                                <b> Date:</b> <?= $rental_date ?>
+                                <b> <?= $departure_location['location_name'] ?></b>
                             </div>
-                            <!-- <div class="text-lg" style="margin: 20px">
-                                <b>To: </b> <?= $arrival_location['location_name'] ?>
-                            </div> -->
+                            <div class="text-lg" style="margin: 20px">
+                                <b><?= $arrival_location['location_name'] ?></b>
+                            </div>
+
+
                         </div>
 
-                        <div class="" style=" margin: 1px">
+                        <div class="" style=" margin: 1px; display: flex">
                             <div class="text-lg" style="margin: 20px">
-                                <b>From: </b> <?= $departure_location['location_name'] ?>
+                                <b><?= $rental_date ?></b>
                             </div>
-                            <div class="text-lg" style="margin: 20px">
-                                <b>Time:</b> <?= $rental_time ?>
+
+                            <div class="spe" style="">
+                                <div class="text-lmoney" style="margin: 20px">
+                                    <b> $<?= $total_price ?></b>
+                                </div>
                             </div>
-                            <!-- <div class="text-lg" style="margin: 20px">
-                                <b>Price: </b> $<?= $total_price ?>
-                            </div> -->
                         </div>
 
-                        <div class="" style=" margin: 1px">
-                            <div class="text-lg" style="margin: 20px">
-                                <b>To: </b> <?= $arrival_location['location_name'] ?>
-                            </div>
-                            <div class="text-lg" style="margin: 20px">
-                                <b>Price: </b> $<?= $total_price ?>
-                            </div>
-                            <!-- <div class="text-lg" style="margin: 20px">
-                                <b>Price: </b> $<?= $total_price ?>
-                            </div> -->
-                        <div>
+                    </div>
+
+
+                    <div class="lotdinf" style="font-size: 15px; backgroud-image: black; margin-bottom: 50px">
+
+                        <div class="payment-form" style="width: 100%; padding: 20px; border: 1px solid #ccc; border-radius: 10px;">
+
+                            <form action="process_payment.php" method="POST" style="display: flex">
+
+                                <input type="hidden" name="booking_id" value="<?= $booking_id ?>">
+
+
+                                <div class="mb-4 w-full">
+                                    <label for="card_number" class="text-gray-700"><b>Credit Card Number:</b></label>
+                                    <input type="text" name="card_number" placeholder="1234 5678 9012 3456" class="text-lg" required>
+                                </div>
+
+                                <div class="mb-4 w-full">
+                                    <label for="expiration_date" class="text-gray-700"><b>Expiration Date:</b></label>
+                                    <input type="month" name="expiration_date" placeholder="MM/YY" class="text-lg" required>
+                                </div>
+
+                                <div class="mb-4 w-full">
+                                    <label for="cvc" class="text-gray-700"><b>CVC:</b></label>
+                                    <input type="text" name="cvc" placeholder="123" class="text-lg" required>
+                                </div>
+
+                                <button class="button00" type="submit">
+                                    Complete Payment
+                                </button>
+
+                            </form>
+                        </div>
 
                     </div>
 
@@ -251,46 +291,6 @@
 
 
                 </div>
-            </div>
-
-            <div>
-                <b>
-                    <h3>
-                        Enter you email and Username
-                    </h3>
-                </b>
-            </div>
-
-            <div>
-                <form class="" action="paiement.php" method="POST">
-                    <!-- ID de l'avion -->
-                    <input type="hidden" name="plane_id" value="<?= $plane['rental_id'] ?>">
-                    <input type="hidden" name="departure_location" value="<?= $departure_location['location_name'] ?>">
-                    <input type="hidden" name="arrival_location" value="<?= $arrival_location['location_name'] ?>">
-                    <input type="hidden" name="rental_date" value="<?= $rental_date ?>">
-                    <input type="hidden" name="total_price" value="<?= $total_price ?>">
-
-                    <div style="display: flex; gap:10px">
-                        <!-- Nom d'utilisateur -->
-                        <div class="">
-                            <input type="text" name="username" placeholder="Username" class="text-lg" required>
-                        </div>
-
-                        <!-- E-mail -->
-                        <div class="">
-                            <input type="email" name="email" placeholder="Your Email" class="text-lg" required>
-                        </div>
-
-                        <div>
-                            <button class="button00" type="submit" class="">
-                                Confirm Booking
-                            </button>
-                        </div>
-
-                    </div>
-                </form>
-
-
             </div>
 
 
@@ -299,47 +299,39 @@
 
     </section>
 
-    <!-- <section class="special">
-        <p>
-            <br></br>
-            <br></br>
+    <section>
 
-        </p>
-    </section> -->
-
-    <footer class="footer20" style>
-        <div class="footer-bottom">
-            <!-- &copy; 2024 Airline Management System | Designed by Nesrine - Caleb - Walid - Ulrich - Walker -->
-        </div>
+    </section>
+    <footer class="footer20">
         <div class="footer-content">
-            <div class="footer-section about">
-                <img src="../image/aircraft-removebg-preview.png" alt="Aircraft Image">
-                <p>With STAFFS_AIRWAYS, you can easily book any ticket you need to travel safely thanks to our detailed system of searching and booking airline tickets.</p>
-                <div class="contact">
-                <span><i class="fas fa-phone"></i> +33 234 567 890</span>
-                <span><i class="fas fa-envelope"></i> sttaffsairways@gmail.com</span>
-                </div>
+        <div class="footer-section about">
+            <img src="../image/aircraft-removebg-preview.png" alt="Aircraft Image">
+            <p>With STAFFS_AIRWAYS, you can easily book any ticket you need to travel safely thanks to our detailed system of searching and booking airline tickets.</p>
+            <div class="contact">
+            <span><i class="fas fa-phone"></i> +33 234 567 890</span>
+            <span><i class="fas fa-envelope"></i> sttaffsairways@gmail.com</span>
             </div>
-            <div class="footer-section links">
-                <h2>Quick Links</h2>
-                <ul>
-                <li><a href="home.php">Home</a></li>
-                <li><a href="aboutUs.php">About</a></li>
-                <li><a href="#">Services</a></li>
-                <li><a href="#">Contact</a></li>
-                </ul>
-            </div>
-            <div class="footer-section contact-form">
-                <h2>Contact Us</h2>
-                <form action="#">
-                <input type="email" name="email" class="text-input contact-input" placeholder="Your email address">
-                <textarea name="message" class="text-input contact-input" placeholder="Your message"></textarea>
-                <button type="submit" class="btn contact-btn">
-                    <i class="fas fa-envelope"></i>
-                    Send Message
-                </button>
-                </form>
-            </div>
+        </div>
+        <div class="footer-section links">
+            <h2>Quick Links</h2>
+            <ul>
+            <li><a href="home.php">Home</a></li>
+            <li><a href="aboutUs.php">About</a></li>
+            <li><a href="#">Services</a></li>
+            <li><a href="#">Contact</a></li>
+            </ul>
+        </div>
+        <div class="footer-section contact-form">
+            <h2>Contact Us</h2>
+            <form action="#">
+            <input type="email" name="email" class="text-input contact-input" placeholder="Your email address">
+            <textarea name="message" class="text-input contact-input" placeholder="Your message"></textarea>
+            <button type="submit" class="btn contact-btn">
+                <i class="fas fa-envelope"></i>
+                Send Message
+            </button>
+            </form>
+        </div>
         </div>
         <div class="footer-bottom">
         &copy; 2024 Airline Management System | Designed by Nesrine - Caleb - Walid - Ulrich - Walker
@@ -352,6 +344,7 @@
             border-radius: 7px;
             margin: 10px;
         }
+
         .vertical-line {
             border-left: 2px solid black;  /* Créer une bordure verticale */
             height: 100%;  /* La bordure occupe toute la hauteur */
@@ -373,14 +366,6 @@
             justify-content: center;
             align-items: center;
         }
-        body {
-            margin: 0; /* 1 */
-            line-height: inherit; /* 2 */
-            background: linear-gradient(to bottom,#d0d1d1, #001d3d ) ;
-        }
-        .special{
-            background: linear-gradient(to bottom,#d0d1d1, #001d3d ) ;
-        }
         .footer20 {
             background-color: transparent;
             color: #ccc; /* Changer la couleur du texte en #ccc */
@@ -388,6 +373,12 @@
             text-align: left; /* Aligner le texte à gauche */
             margin-top: 100px;
         }
+        body {
+            margin: 0; /* 1 */
+            line-height: inherit; /* 2 */
+            background: linear-gradient(to bottom,#d0d1d1, #001d3d );
+        }
+
     </style>
 
 </body>

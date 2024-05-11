@@ -144,6 +144,7 @@ global $base;
                 <?php
                 foreach ($_POST as $key => $value) {
                     echo "<input type='hidden' name='".htmlspecialchars($key)."' value='".htmlspecialchars($value)."'>";
+                  
                 }
                 ?>
 

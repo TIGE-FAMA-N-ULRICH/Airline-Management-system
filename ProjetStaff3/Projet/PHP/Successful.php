@@ -42,6 +42,7 @@ global $base;
 
 
 <section >
+
             <h2>Reservation Confirmation</h2>
             <?php
             if(isset($_SESSION['user_id'])){
@@ -56,9 +57,10 @@ global $base;
              ?>
             <p>If this reservation concerned several passengers each of them will receive the details of the reservation in their email address.</p>
             <p>Thank you for booking with Staff Airline.</p>
-          </ul>
-        </div>
+
+
         </section>
+
         <footer class="footer">
   <div class="footer-content">
     <div class="footer-section about">

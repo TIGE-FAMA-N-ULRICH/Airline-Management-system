@@ -56,10 +56,10 @@
 
     <main>
 
-    <section class="bg-secondary-500 poster relative text-gray-300">
-        <div class="container mx-auto pb-24 pt-72 px-4" style="display: flex;">
-            <div class="-mx-4 flex flex-wrap items-center space-y-6 lg:space-y-0" style="margin-left:100px; font-size: 40px">
-                <div class=".content">
+    <section class="bg-secondary-500 poster relative text-gray-300" style="margin-bottom: -50px; padding-bottom: -30px">
+        <div class="container mx-auto pb-24 pt-72 px-4" style="display: flex; margin-top: -70px">
+            <div class="-mx-4 flex flex-wrap items-center space-y-6 lg:space-y-0" style="margin-left:100px;">
+                <div class="content" style="padding: 0 50px; margin-top: 50px; width: 100%">
                     <div class="px-4 w-full md:w-9/12 xl:w-7/12 2xl:w-6/12" style="">
                         <p class="font-bold font-sans mb-1 text-2xl text-white">The</p>
                         <h1 class="font-bold mb-6 text-5xl text-white md:leading-tight lg:leading-tight lg:text-6xl">
@@ -114,7 +114,7 @@
                         <button type="submit">Search Flight</button>
                     </form>
                 </div> -->
-                <div class="booking-form show" id="rental-plane-form" style="width: 80%; margin-right:-150px;">
+                <div class="booking-form show" id="rental-plane-form" style="width: 80%; margin-right:-100px; margin-left: 70px">
                     <h2>Rent a Plane</h2>
                     <form action="#" method="post">
                         <!-- Champs de sélection pour le départ -->
@@ -157,18 +157,18 @@
                         <!-- Autres champs du formulaire -->
                         <div class="row">
                             <div class="col">
-                            <label for="rental_date_time">Date & Time</label>
-                            <input type="datetime-local" id="rental_date_time" name="rental_date_time" required />
+                                <label for="rental_date_time">Date & Time</label>
+                                <input type="datetime-local" id="rental_date_time" name="rental_date_time" required />
                             </div>
                             <div class="col">
-                            <label for="passengers">Passengers</label>
-                            <input type="number" id="passengers" name="passengers" min="1" value="1" />
+                                <label for="passengers">Passengers</label>
+                                <input type="number" id="passengers" name="passengers" min="1" value="1" />
                             </div>
                         </div>
 
                         <!-- Bouton de réservation -->
                         <button type="submit">Book Now</button>
-                        </form>
+                    </form>
 
                 </div>
             </div>
@@ -284,11 +284,11 @@
                     <div class="image-container">
                         <img src="../Img/about.jpeg" alt="About Us Image">
                     </div>
-                    <div class="content">
+                    <div class="content" style="margin-left: 50px">
                         <h2>About Us</h2>
                         <h1>Making Your Dreams Come True</h1>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In euismod ligula ac ex tincidunt rutrum. Pellentesque euismod lorem vitae magna tincidunt tincidunt vel vel sapien.</p>
-                        <button>Discover More</button>
+                        <p>Staffs Airways offers a unique and memorable travel experience, committed to service excellence, passenger comfort, and environmental sustainability. Our private jet charter services cater to discerning clients, providing luxurious and convenient travel options for business or special occasions.</p>
+                        <a href="../php/aboutUs.php"><button>Discover More</button></a>
                     </div>
                 </div>
             </section>
@@ -444,7 +444,7 @@
         <footer class="footer">
             <div class="footer-content">
                 <div class="footer-section about">
-                <img src="../Img_logo/aircraft-removebg-preview.png" alt="Aircraft Image">
+                <img src="../image/aircraft-removebg-preview.png" alt="Aircraft Image">
                 <p>With STAFFS_AIRWAYS, you can easily book any ticket you need to travel safely thanks to our detailed system of searching and booking airline tickets.</p>
                 <div class="contact">
                     <span><i class="fas fa-phone"></i> +33 234 567 890</span>
@@ -475,7 +475,8 @@
             <div class="footer-bottom">
                 &copy; 2024 Airline Management System | Designed by Nesrine - Caleb - Walid - Ulrich - Walker
             </div>
-            </footer>
+        </footer>
+
         <style>
             .half-size {
                 width: 100%; /* Reduce image size by half */
@@ -573,7 +574,7 @@
                 color: #CCC;
             }
 
-            .booking-form input[type="text"], .booking-form input[type="date"], .booking-form input[type="number"], .booking-form select, .rental-form input[type="text"], .rental-form input[type="date"], .rental-form input[type="number"], .rental-form select {
+            .booking-form input[type="text"], .booking-form input[type="datetime-local"], .booking-form input[type="number"], .booking-form select, .rental-form input[type="text"], .rental-form input[type="datetime-local"], .rental-form input[type="number"], .rental-form select {
                 width: 100%;
                 padding: 10px;
                 margin-bottom: 20px;
@@ -643,9 +644,8 @@
                 border: 1px solid #ccc;
             }
             .content {
-                padding: 0 50px;
-                margin-top: 50px;
-                width: calc(100% - 400px); /* Pour laisser de l'espace au formulaire */
+
+                /* width: calc(100% - 400px); Pour laisser de l'espace au formulaire */
             }
             .body{
                 background-color: #caced5;
@@ -655,7 +655,7 @@
                 padding: 50px 0;
                 text-align: center;
                 background-color: #d0d1d1;
-                background: linear-gradient(to bottom, transparent, #ccc,#d0d1d1, transparent);
+                background: linear-gradient(to bottom, transparent, #ccc,#d0d1d1);
             }
 
             .about-us .about {
