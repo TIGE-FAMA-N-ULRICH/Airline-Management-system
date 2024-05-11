@@ -1,3 +1,14 @@
+header, body {
+    font-family: Arial, sans-serif;
+    width: 100%;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
 .navbar {
     background-color: #001d3d; /* Couleur de fond de la barre de navigation */
     color: #ffc300; /* Couleur du texte dans la barre de navigation */
@@ -7,7 +18,7 @@
     width: 100%; /* Largeur de la barre sur toute la largeur de la fenêtre */
     z-index: 1000; /* Assurer que la barre est au-dessus de tout autre contenu */
   }
-  
+
   .container {
     display: flex;
     justify-content: space-between;
@@ -16,21 +27,21 @@
     margin: 0 auto;
     padding: 0 20px;
   }
-  
+
   .logo {
     width: 120px; /* Largeur du logo */
     height: auto; /* Maintenir le rapport hauteur/largeur */
   }
-  
+
   .nav-links {
     list-style: none;
     display: flex;
   }
-  
+
   .nav-links li {
     margin-right: 20px;
   }
-  
+
   .nav-links li a {
     text-decoration: none;
     color: #EBEBEB;
@@ -46,76 +57,76 @@
     padding: 0.15px 10px; /* Espacement interne */
     border-radius: 5px; /* Coins arrondis */
   }
- 
 
 
 
 
-.container1 { 
-  width: 100%; 
-  min-height: 100vh; 
-  
-  
-} 
 
-.price-col h3 { 
-  margin: 0% 0 2% 20%; 
-  font-size: 24px; 
-  color: #987608; 
-  
-} 
+.container1 {
+  width: 100%;
+  min-height: 100vh;
 
-.price-row { 
-  width: 81%; 
-  margin: auto; 
-  display: grid; 
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
-  grid-gap: 30px; 
-} 
 
-.price-col { 
-  transition: box-shadow .5s; 
-  transition: transform; 
-  background: #f9f9f9; 
-  padding: 10% 10%; 
-  border-radius: 10px; 
-  color: #D8D9DA; 
-  text-align: center; 
+}
+
+.price-col h3 {
+  margin: 0% 0 2% 20%;
+  font-size: 24px;
+  color: #987608;
+
+}
+
+.price-row {
+  width: 81%;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-gap: 30px;
+}
+
+.price-col {
+  transition: box-shadow .5s;
+  transition: transform;
+  background: #f9f9f9;
+  padding: 10% 10%;
+  border-radius: 10px;
+  color: #D8D9DA;
+  text-align: center;
   border: solid 1px #001d3d;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-} 
+}
 
-hr { 
-  padding: -10% !important; 
-} 
+hr {
+  padding: -10% !important;
+}
 
 
 
-.price-col p { 
-  font-size: 22px; 
+.price-col p {
+  font-size: 22px;
   color: #987608;
-} 
+}
 
-.price-col h3 { 
-  color: #001d3d; 
-  font-size: 44px; 
-  margin: 15px 0 20px; 
-  font-weight: 500; 
-} 
-.price-col ul { 
-  text-align: left; 
-  margin: 10px 0; 
-  color: #0C356A; 
-  list-style: none; 
-} 
+.price-col h3 {
+  color: #001d3d;
+  font-size: 44px;
+  margin: 15px 0 20px;
+  font-weight: 500;
+}
+.price-col ul {
+  text-align: left;
+  margin: 10px 0;
+  color: #0C356A;
+  list-style: none;
+}
 
-.price-col ul li { 
-  border-bottom: 2px solid #feffff; 
-  font-size: 20px; 
-  color: #001d3d; 
-  padding: 8px; 
-  text-align: left; 
-} 
+.price-col ul li {
+  border-bottom: 2px solid #feffff;
+  font-size: 20px;
+  color: #001d3d;
+  padding: 8px;
+  text-align: left;
+}
 
 
 .sel {
@@ -148,7 +159,7 @@ hr {
   content: "\00D7"; /* Caractère Unicode pour une croix (multiplication) */
   color: red; /* Couleur rouge */
   margin-right: 5px;
-  
+
 }
 
 .front-cabin-seats:before,
@@ -230,7 +241,7 @@ hr {
   font-size: 24px;
   color: #333333;
   margin-bottom: 20px;
-  
+
 }
 
 .passenger-info {
@@ -264,7 +275,7 @@ hr {
   margin-bottom: 10px;
   border: 1px solid #ccc;
   border-radius: 3px;
-  
+
   box-sizing: border-box;
 }
 

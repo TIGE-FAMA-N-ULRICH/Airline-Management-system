@@ -1,3 +1,10 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+
 .navbar {
     background-color: #001d3d; /* Couleur de fond de la barre de navigation */
     color: #ffc300; /* Couleur du texte dans la barre de navigation */
