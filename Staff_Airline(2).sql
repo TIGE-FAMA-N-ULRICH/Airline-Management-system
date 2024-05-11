@@ -322,7 +322,6 @@ CREATE TABLE `booking_flight` (
   `skypriority` tinyint(1) DEFAULT 0,
   `checked_baggage` int(11) DEFAULT 0,
   `cabin_baggage` int(11) DEFAULT 1,
-  `cabin_baggage_return` int(11) DEFAULT 1,
   `refundable` tinyint(1) DEFAULT 0,
   `front_seats` tinyint(1) DEFAULT 0,
   `insurance` int(11) DEFAULT 0,
