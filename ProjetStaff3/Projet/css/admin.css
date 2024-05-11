@@ -1,0 +1,11 @@
+.corps{
+    background-color: #001d3d;
+    background-size: cover;
+    background-position: center;
+    color: #EBEBEB;
+    padding: 50px;
+    margin-top: 100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start; /* Pour aligner les éléments en haut */
+}
