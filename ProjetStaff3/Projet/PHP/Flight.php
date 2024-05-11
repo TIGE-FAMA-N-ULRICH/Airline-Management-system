@@ -70,10 +70,10 @@ global $base;
 
                     echo "<form action='BookingFlight.php' method='post'>";
 
-                    displayFlights($base, $departureCity, $destinationCity, $departDate, $passengers, "Departure Flights", "outbound", $class);
-                    if (!empty($returnDate)) {
-                        displayFlights($base, $destinationCity, $departureCity, $returnDate, $passengers, "Return Flights", "return", $class);
-                    }
+                    displayFlights($base, $departureCity, $destinationCity, $departDate, $passengers, "Departure Flights <img src='../image/airplane.png' alt='icone_departure_flights' style='width: 40px; height: 30px;'> ", "outbound", $class);
+                      if (!empty($returnDate)) {
+                          displayFlights($base, $destinationCity, $departureCity, $returnDate, $passengers, "Return Flights <img src='../image/airplane (1).png' alt='icone_return_flights' style='width: 40px; height: 30px;'> ", "return", $class);
+                      }
 
                     echo "<br><br><br>";
                     echo "<input type='hidden' name='class' value='" . htmlspecialchars($class) . "'>";
@@ -171,9 +171,11 @@ global $base;
 
                   //price
                   echo "<div class='price-and-select'>";
-                  echo "<div class='price-info'>EUR " . $adjustedPrice2 . "</div>";
-                  echo "<div class='select-button'>";
-                  echo "<input id='sel' type='radio' name='selected_$flightDirection' value='" . $row['flight_id'] . "'>";
+                  echo "<div class='price-info'>£ " . $adjustedPrice2 . "</div>";
+                  echo "<div id='sel'>";
+
+                  //echo "<input id='sel' type='radio' name='selected_$flightDirection' value='" . $row['flight_id'] . "'>";
+                  echo "<label>Select <input type='radio' name='selected_$flightDirection' value='" . $row['flight_id'] . "'></label>";
                   echo "</div>";
                   echo "</div>";
 
