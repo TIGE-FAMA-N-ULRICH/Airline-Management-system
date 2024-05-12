@@ -340,6 +340,19 @@ ALTER TABLE `booking_flight`
   ADD CONSTRAINT `booking_flight_ibfk_3` FOREIGN KEY (`return_flight_id`) REFERENCES `Flights` (`flight_id`);
 
 
+-- Table des Emplacements
+CREATE TABLE Locations (
+  location_id INT PRIMARY KEY AUTO_INCREMENT,
+  location_name VARCHAR(255) NOT NULL,
+  latitude DECIMAL(10, 8),  -- Latitude
+  longitude DECIMAL(11, 8),  -- Longitude
+  country VARCHAR(100),  -- Pays
+  city VARCHAR(100),  -- Ville
+  airport_code VARCHAR(10),  -- Code de l'aéroport (ex : LHR)
+  description TEXT  -- Description de l'emplacement
+);
+
+
 
 CREATE TABLE `Rental_planes` (
   `rental_id` int(11) NOT NULL AUTO_INCREMENT,  
@@ -470,17 +483,6 @@ VALUES
 'A single-engine turboprop with high efficiency.', 4.6, 75, '../Img/2621927.jpg');
 
 
--- Table des Emplacements
-CREATE TABLE Locations (
-  location_id INT PRIMARY KEY AUTO_INCREMENT,
-  location_name VARCHAR(255) NOT NULL,
-  latitude DECIMAL(10, 8),  -- Latitude
-  longitude DECIMAL(11, 8),  -- Longitude
-  country VARCHAR(100),  -- Pays
-  city VARCHAR(100),  -- Ville
-  airport_code VARCHAR(10),  -- Code de l'aéroport (ex : LHR)
-  description TEXT  -- Description de l'emplacement
-);
 
 
 -- Mise à jour de la Table des Avions pour inclure la localisation de base
