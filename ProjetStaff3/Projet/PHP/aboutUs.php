@@ -111,7 +111,7 @@ global $base;
         <li>Indulge in the ultimate luxury of private jet travel with Staffs Airways.</li>
         <li>Whether for last-minute business trips or luxury getaways with family, our private jet charter service offers you the freedom to travel on your own terms.</li>
       </ul>
-      <a href="#"><button>Discover More</button></a>
+      <a href="aircraft.php"><button>Discover More</button></a>
     </div>
   </div>
 </section>

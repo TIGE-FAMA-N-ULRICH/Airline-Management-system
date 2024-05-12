@@ -288,7 +288,7 @@
                         <h2>About Us</h2>
                         <h1>Making Your Dreams Come True</h1>
                         <p>Staffs Airways offers a unique and memorable travel experience, committed to service excellence, passenger comfort, and environmental sustainability. Our private jet charter services cater to discerning clients, providing luxurious and convenient travel options for business or special occasions.</p>
-                        <a href="../php/aboutUs.php"><button>Discover More</button></a>
+                        <a href="aboutUs.php"><button>Discover More</button></a>
                     </div>
                 </div>
             </section>
