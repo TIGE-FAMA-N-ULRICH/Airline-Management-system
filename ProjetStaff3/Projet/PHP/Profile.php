@@ -10,10 +10,11 @@ if (isset($_SESSION['user_id'])){
   <head>
     <meta charset="utf-8">
     <title>Staff Airline</title>
-
+    <link rel="stylesheet" href="../css/profile.css">
   </head>
 
   <body>
+    <header>
     <nav class="navbar">
         <div class="container">
           <img src="../image/aircraft-removebg-preview.png" alt="Airline Management Logo" class="logo">
@@ -35,7 +36,13 @@ if (isset($_SESSION['user_id'])){
               echo "<li><a href=\"Login.php\">Log In</a></li>
                     <li id=\"sign-in\"><a href=\"Registration.php\">Sign In</a></li>";
             }
-
+            ?>
+            </ul>
+          </div>
+        </nav>
+      </header>
+  <section id="sec">
+<?php
             $query = "SELECT bf.*,
                df.flight_number AS departure_flight_number,
                rf.flight_number AS return_flight_number,
@@ -82,21 +89,18 @@ if (isset($_SESSION['user_id'])){
           if (!$reservations) {
               echo "No bookings found for this user.";
           } else {
-              // Continue with HTML rendering
-              // Your existing HTML and table rendering code goes here
           }
 
 
             ?>
 
-          </ul>
-        </div>
-      </nav>
+            <section id="user-info">
+                <h3>Name: <span><?php echo htmlspecialchars($_SESSION['username']); ?></span></h3>
+                <h3>Email: <span><?php echo htmlspecialchars($_SESSION['email']); ?></span></h3>
+            </section>
 
-      <h1>Username : <?php echo $_SESSION['username']; ?></h1><br>
-      <h2>Email: <?php echo $_SESSION['email']; ?></h2>
-      <section>
-    <h3>Booking Flight History</h3>
+  <section class="booking-history">
+    <h1>Booking Flight History</h1>
     <table>
         <thead>
             <tr>
@@ -155,13 +159,11 @@ if (isset($_SESSION['user_id'])){
           <?php endforeach; ?>
         </tbody>
     </table>
-</section>
-
-<h3>Booking Plane History</h3>
 
 
-  </body>
-</html>
+<h1>Booking Plane History</h1>
+
+
 
 <?php
 
@@ -169,3 +171,41 @@ if (isset($_SESSION['user_id'])){
 else {
     echo "Please log in to view this page.";
 } ?>
+</section>
+<footer class="footer">
+<div class="footer-content">
+  <div class="footer-section about">
+    <img src="../image/aircraft-removebg-preview.png" alt="Aircraft Image">
+    <p>With STAFFS_AIRWAYS, you can easily book any ticket you need to travel safely thanks to our detailed system of searching and booking airline tickets.</p>
+    <div class="contact">
+      <span><i class="fas fa-phone"></i> +33 234 567 890</span>
+      <span><i class="fas fa-envelope"></i> sttaffsairways@gmail.com</span>
+    </div>
+  </div>
+  <div class="footer-section links">
+    <h2>Quick Links</h2>
+    <ul>
+      <li><a href="home.php">Home</a></li>
+      <li><a href="aboutUs.php">About</a></li>
+      <li><a href="#">Services</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+  </div>
+  <div class="footer-section contact-form">
+    <h2>Contact Us</h2>
+    <form action="#">
+      <input type="email" name="email" class="text-input contact-input" placeholder="Your email address">
+      <textarea name="message" class="text-input contact-input" placeholder="Your message"></textarea>
+      <button type="submit" class="btn contact-btn">
+        <i class="fas fa-envelope"></i>
+        Send Message
+      </button>
+    </form>
+  </div>
+</div>
+<div class="footer-bottom">
+  &copy; 2024 Airline Management System | Designed by Nesrine - Caleb - Walid - Ulrich - Walker
+</div>
+</footer>
+  </body>
+</html>
