@@ -1,3 +1,8 @@
+<?php
+session_start();
+include 'Base.php';
+global $base;
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

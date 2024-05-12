@@ -16,12 +16,12 @@ global $base;
     <form class="login-form" action="#" method="POST">
       <h2>Log in</h2>
       <div class="input-group">
-        <label for="email">username :</label>
+        <label for="email">Email :</label>
         <input type="email" name="email" id="email" placeholder="Your email">
       </div>
-      
+
       <div class="input-group">
-        <label for="password">password:</label>
+        <label for="password">Password:</label>
         <input type="password" name="password" id="password" placeholder="Your password"><br>
       </div>
       <div class="button">
@@ -71,8 +71,8 @@ global $base;
   ?>
   <h3 class="reg">No account yet ? Register here: <a href="Registration.php"> Registration </a></h3>
     </form>
-    
-   
+
+
   </div>
 </body>
 </html>
