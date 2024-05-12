@@ -26,7 +26,7 @@ CREATE TABLE Airports (
     airport_id INT AUTO_INCREMENT PRIMARY KEY,
     airport_name VARCHAR(255) NOT NULL,
     city_id INT,
-    FOREIGN KEY (city_id) REFERENCES Cities(city_id)
+    FOREIGN KEY (city_id) REFERENCES Cities(city_id) ON DELETE CASCADE
 );
 
 INSERT INTO Cities (city_name, country) VALUES
@@ -223,9 +223,9 @@ CREATE TABLE `Flights` (
   `available_seats` int(11) DEFAULT NULL,
   `stopover_info` text DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-   FOREIGN KEY (`plane_id`) REFERENCES `Commercial_plane`(`plane_id`),
-   FOREIGN KEY (`departure_airport`) REFERENCES `Airports`(`airport_id`),
-  FOREIGN KEY (`arrival_airport`) REFERENCES `Airports`(`airport_id`)
+   FOREIGN KEY (`plane_id`) REFERENCES `Commercial_plane`(`plane_id`) ON DELETE CASCADE,
+   FOREIGN KEY (`departure_airport`) REFERENCES `Airports`(`airport_id`) ON DELETE CASCADE,
+  FOREIGN KEY (`arrival_airport`) REFERENCES `Airports`(`airport_id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 ALTER TABLE `Flights`
@@ -337,9 +337,9 @@ ALTER TABLE `booking_flight`
 
 
 ALTER TABLE `booking_flight`
-  ADD CONSTRAINT `booking_flight_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `Users` (`user_id`),
-  ADD CONSTRAINT `booking_flight_ibfk_2` FOREIGN KEY (`departure_flight_id`) REFERENCES `Flights` (`flight_id`),
-  ADD CONSTRAINT `booking_flight_ibfk_3` FOREIGN KEY (`return_flight_id`) REFERENCES `Flights` (`flight_id`);
+  ADD CONSTRAINT `booking_flight_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `Users` (`user_id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `booking_flight_ibfk_2` FOREIGN KEY (`departure_flight_id`) REFERENCES `Flights` (`flight_id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `booking_flight_ibfk_3` FOREIGN KEY (`return_flight_id`) REFERENCES `Flights` (`flight_id`) ON DELETE CASCADE;
 
 
 -- Table des Emplacements
@@ -376,7 +376,7 @@ CREATE TABLE `Rental_planes` (
   `created_at` timestamp DEFAULT CURRENT_TIMESTAMP, 
   `updated_at` timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, 
   base_location INT,
-  FOREIGN KEY (base_location) REFERENCES Locations(location_id),
+  FOREIGN KEY (base_location) REFERENCES Locations(location_id) ON DELETE CASCADE,
   PRIMARY KEY (`rental_id`)                    
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;         
 
@@ -502,10 +502,10 @@ CREATE TABLE Bookings (
   total_price DECIMAL(10, 2),  -- Coût total de la réservation
   status ENUM('confirmed', 'pending', 'canceled'),  -- Statut de la réservation
   notes TEXT,
-  FOREIGN KEY (plane_id) REFERENCES Rental_planes(rental_id),
-  FOREIGN KEY (customer_id) REFERENCES Users(user_id),
-  FOREIGN KEY (departure_location) REFERENCES Locations(location_id),
-  FOREIGN KEY (arrival_location) REFERENCES Locations(location_id)
+  FOREIGN KEY (plane_id) REFERENCES Rental_planes(rental_id) ON DELETE CASCADE,
+  FOREIGN KEY (customer_id) REFERENCES Users(user_id) ON DELETE CASCADE,
+  FOREIGN KEY (departure_location) REFERENCES Locations(location_id) ON DELETE CASCADE,
+  FOREIGN KEY (arrival_location) REFERENCES Locations(location_id) ON DELETE CASCADE
 );
 
 
