@@ -360,6 +360,8 @@ CREATE TABLE `Rental_planes` (
   `image_path` varchar(255) DEFAULT NULL,      
   `created_at` timestamp DEFAULT CURRENT_TIMESTAMP, 
   `updated_at` timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, 
+  base_location INT,
+  FOREIGN KEY (base_location) REFERENCES Locations(location_id),
   PRIMARY KEY (`rental_id`)                    
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;         
 
@@ -482,9 +484,7 @@ CREATE TABLE Locations (
 
 
 -- Mise à jour de la Table des Avions pour inclure la localisation de base
-ALTER TABLE Rental_planes
-  ADD COLUMN base_location INT,
-  ADD FOREIGN KEY (base_location) REFERENCES Locations(location_id);
+
 
 CREATE TABLE Bookings (
   booking_id INT PRIMARY KEY AUTO_INCREMENT,
