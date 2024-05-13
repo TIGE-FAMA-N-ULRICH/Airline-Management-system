@@ -67,6 +67,7 @@
   <head>
     <meta charset="utf-8">
     <title>Staff Airline</title>
+    <link rel="stylesheet" href="../css/successful.css">
 
 
   </head>
@@ -105,56 +106,63 @@
 
       <?php echo" $plane_id, $user_id, $rental_date, $rental_time, $departure_location_id, $arrival_location_id, $total_price"; ?>
 
-      <!-- <section class="booking" style="display: flex; width: 100%; justify-content: center; align-items: center;">
-        <div class="booking20" style="margin-bottom:0">
-            <div  style="display: flex;">
-                <div class="px-4" style="margin-right: 30px; display: flex; margin-top: 20px; width: 50%" >
-                    <img src="<?= $plane['image_path']?>" class=" " alt="<?= $plane['model'] ?>"  style=" width: 100%; border-radius: 20px" />
-                </div>
-                <div class="w-full " style="; width: 70%;">
+      <section >
 
-                    <div tyle="flex">
-                        <h2 class="font-bold">Payment Information</h2>
-                    </div>
+        <h2>Reservation Confirmation</h2>
+        <?php
+          if(isset($_SESSION['user_id'])){
+            echo "<p>You will find the details of your reservation in your profile and email address.</p>";
 
-                    
-                    <div class="" style="font-size: 12px; margin-bottom: 50px; display: flex">
+          }
+          else{
+            echo "<p>You will find the details of your reservation in your email address.</p>";
 
-                        <div class="" style="margin: 1px; display: flex"> 
-                            <div class="text-lg" style="margin: 20px">
-                                <b> <?= $plane['model'] ?></b>
-                            </div>
-                            <div class="text-lg" style="margin: 20px">
-                                <b> <?= $departure_location['location_name'] ?></b>
-                            </div>
-                            <div class="text-lg" style="margin: 20px">
-                                <b><?= $arrival_location['location_name'] ?></b>
-                            </div>
-                            
-                            
-                        </div>
+          }
 
-                        <div class="" style=" margin: 1px; display: flex">
-                            <div class="text-lg" style="margin: 20px">
-                                <b><?= $rental_date ?></b>
-                            </div>
-                            
-                            <div class="spe" style="">
-                                <div class="text-lmoney" style="margin: 20px">
-                                    <b> $<?= $total_price ?></b>
-                                </div>
-                            </div>
-                        </div>
+        ?>
+        <p>If this reservation concerned several passengers each of them will receive the details of the reservation in their email address.</p>
+        <p>Thank you for booking with Staff Airline.</p>
 
-                    </div>
 
-                </div>
-            </div>
-        </div>
+      </section>
 
-        
-      </section> -->
+      
 
   </body>
+  <footer class="footer">
+        <div class="footer-content">
+          <div class="footer-section about">
+            <img src="../image/aircraft-removebg-preview.png" alt="Aircraft Image">
+            <p>With STAFFS_AIRWAYS, you can easily book any ticket you need to travel safely thanks to our detailed system of searching and booking airline tickets.</p>
+            <div class="contact">
+              <span><i class="fas fa-phone"></i> +33 234 567 890</span>
+              <span><i class="fas fa-envelope"></i> sttaffsairways@gmail.com</span>
+            </div>
+          </div>
+          <div class="footer-section links">
+            <h2>Quick Links</h2>
+            <ul>
+              <li><a href="home.php">Home</a></li>
+              <li><a href="aboutUs.php">About</a></li>
+              <li><a href="#">Services</a></li>
+              <li><a href="#">Contact</a></li>
+            </ul>
+          </div>
+          <div class="footer-section contact-form">
+            <h2>Contact Us</h2>
+            <form action="#">
+              <input type="email" name="email" class="text-input contact-input" placeholder="Your email address">
+              <textarea name="message" class="text-input contact-input" placeholder="Your message"></textarea>
+              <button type="submit" class="btn contact-btn">
+                <i class="fas fa-envelope"></i>
+                Send Message
+              </button>
+            </form>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          &copy; 2024 Airline Management System | Designed by Nesrine - Caleb - Walid - Ulrich - Walker
+        </div>
+      </footer>
 </html>
 
