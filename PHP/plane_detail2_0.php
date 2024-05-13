@@ -3,6 +3,17 @@ session_start();
 include 'Base.php';
 global $base;
 
+
+$arrival = $_GET['arrival'];
+$datetime = $_GET['date'];
+$date_format = substr($datetime, 0, 10); 
+$time_format = substr($datetime, 11, 15);
+
+
+
+
+
+
 // Fetch all unique models from the planes table
 $query = "SELECT DISTINCT model FROM Rental_planes";
 $stmt = $base->prepare($query);
@@ -36,6 +47,7 @@ $initialPlaneCount = 6; // Display the first 6 planes initially
                     <li><a href="aircraft.php">Rent a Plane</a></li>
                     <li><a href="aboutUs.php">About Us</a></li>
                     <?php
+                    
                     if(isset($_SESSION['user_id'])){
                     echo "<li><a href=\"\">Profile</a></li>";
                     if($_SESSION['admin_id'] == 1){
@@ -57,6 +69,7 @@ $initialPlaneCount = 6; // Display the first 6 planes initially
         <main style="background: linear-gradient(to bottom,#d0d1d1, #001d3d ) ;">
 
             <?php
+
                 
                 $plane_id = $_GET['plane_id'];
 
@@ -315,7 +328,7 @@ $initialPlaneCount = 6; // Display the first 6 planes initially
                                             $arrival_locations = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                         ?>
 
-                                        <form class="rental-form" action="planeBooking.php" method="POST" style="color: black">
+                                        <form class="rental-form" action="planeBooking2_0.php" method="POST" style="color: black">
                                             <input type="hidden" name="plane_id" value="<?= $plane['rental_id'] ?>">
 
                                             <div class="flex justify-between">
@@ -331,12 +344,17 @@ $initialPlaneCount = 6; // Display the first 6 planes initially
                                                 <!-- Lieu d'arrivée -->
                                                 <div class="mb-4 w-full">
                                                     <label for="arrival_location" class="text-gray-700">Arrival Location:</label>
-                                                    <select name="arrival_location" class="form-input w-full border-gray-300 rounded-lg" required>
-                                                        <!-- Liste des lieux d'arrivée, à l'exception du lieu de départ -->
+                                                    <!-- <select name="arrival_location" class="form-input w-full border-gray-300 rounded-lg" required>
+                                                        
                                                         <?php foreach ($arrival_locations as $location): ?>
                                                             <option value="<?= $location['location_id'] ?>"><?= $location['location_name'] ?></option>
                                                         <?php endforeach; ?>
-                                                    </select>
+                                                    </select> -->
+                                                    <input type="text" name="arrival_location" 
+                                                        value="<?= $arrival ?>" 
+                                                        class="form-input w-full border-gray-300 rounded-lg" 
+                                                        readonly>
+                                                    <input type="hidden" name="arrival_location" value="<?= $arrival ?>">
                                                 </div>
                                             </div>
 
@@ -345,12 +363,14 @@ $initialPlaneCount = 6; // Display the first 6 planes initially
                                                 <div class="mb-4 w-1/2 pr-2">
                                                     <label for="rental_date" class="text-gray-700">Date:</label>
                                                     <input type="date" name="rental_date" 
+                                                        value="<?= $date_format ?>"
                                                         class="form-input w-full border-gray-300 rounded-lg" 
                                                         required>
                                                 </div>
                                                 <div class="mb-4 w-1/2 pl-2">
                                                     <label for="rental_time" class="text-gray-700">Time:</label>
                                                     <input type="time" name="rental_time" 
+                                                        value="<?= $time_format ?>"
                                                         class="form-input w-full border-gray-300 rounded-lg" 
                                                         required>
                                                 </div>
@@ -564,7 +584,11 @@ $initialPlaneCount = 6; // Display the first 6 planes initially
                 font-size: 14px;
                 line-height: 1.6;
                 }
-                
+                body {
+                    margin: 0; /* 1 */
+                    line-height: inherit; /* 2 */
+                    background: linear-gradient(to bottom,#001d3d,#d0d1d1, #001d3d );
+                }
             </style>
 
 
