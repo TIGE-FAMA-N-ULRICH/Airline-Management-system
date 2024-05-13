@@ -60,21 +60,42 @@
         }
 
 
+        // Nom de l'emplacement de départ (déjà connu)
+        $arrival_location_name = $_POST['arrival_location'];
 
-        // ID de l'emplacement d'arrivée (déjà connu)
-        $arrival_location_id = $_POST['arrival_location'];
-
-        // Obtenez les détails de l'emplacement d'arrivée
-        $stmt = $base->prepare("SELECT * FROM Locations WHERE location_id = :arrival_location_id");
-        $stmt->bindParam(':arrival_location_id', $arrival_location_id);
+        // Obtenir l'ID de l'emplacement de départ à partir de son nom
+        $stmt = $base->prepare("SELECT location_id FROM Locations WHERE location_name = :arrival_location_name");
+        $stmt->bindParam(':arrival_location_name', $arrival_location_name);
         $stmt->execute();
-        $arrival_location = $stmt->fetch(PDO::FETCH_ASSOC);
+        $arrival_location_row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        // Vérifier si les détails de l'emplacement d'arrivée ont été trouvés
-        if (!$arrival_location) {
-            echo "Erreur : Emplacement d'arrivée non trouvé.";
+
+
+        // Vérifier si l'emplacement de départ a été trouvé
+        if (!$arrival_location_row) {
+            echo "Erreur : Emplacement d'arrivé non trouvé---.------<-- $arrival_location_row--> -----  ";
             exit;
         }
+
+        foreach($arrival_location_row as $arrival_location_id){
+            // Obtenez les détails de l'emplacement d'arrivée
+            $stmt = $base->prepare("SELECT * FROM Locations WHERE location_id = :arrival_location_id");
+            $stmt->bindParam(':arrival_location_id', $arrival_location_id);
+            $stmt->execute();
+            $arrival_location = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            // Vérifier si les détails de l'emplacement d'arrivée ont été trouvés
+            if (!$arrival_location) {
+                echo "Erreur : Emplacement d'arrivée non trouvé.";
+                exit;
+            }
+        }
+        //ID de l'emplacement d'arrivée (déjà connu)
+        //$arrival_location_id = $_POST['arrival_location'];
+
+        //$arrival_location_id = $arrival_location_row;
+
+
 
 
         // Vérifiez que les valeurs POST sont correctes
@@ -214,7 +235,6 @@
                         <div>
 
                     </div>
-                </div>
             </div>
 
 
@@ -224,13 +244,17 @@
 
 
     <section class="booking1"  style="display: flex">
-        <div>
-            <b>
-                <h3>
-                    Complete :
-                </h3>
-            </b>
-        </div>
+
+      <div>
+          <b>
+              <h3>
+                  Complete :
+              </h3>
+          </b>
+      </div>
+
+  </div>
+
 
         <div>
             <form class="" action="paiement.php" method="POST" >
@@ -354,7 +378,7 @@
         body {
             margin: 0; /* 1 */
             line-height: inherit; /* 2 */
-            background: linear-gradient(to bottom, #d0d1d1, #001d3d ) ;
+            background: linear-gradient(to bottom,#d0d1d1, #001d3d ) ;
         }
         .special{
             background: linear-gradient(to bottom,#d0d1d1, #001d3d ) ;

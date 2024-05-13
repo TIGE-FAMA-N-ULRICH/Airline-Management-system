@@ -98,33 +98,59 @@ global $base;
             </div>
             <div class="rental-form" id="rental-plane-form">
                 <h2>Rent a Plane</h2>
-                <form action="#" method="post">
-                <div class="row">
-                      <div class="col">
-                          <label for="departure-city">From</label>
-                          <input type="text" id="departure-city" name="departure-city" required>
-                      </div>
-                      <div class="col">
-                          <label for="destination-city">To</label>
-                          <input type="text" id="destination-city" name="destination-city" required>
-                      </div>
-                  </div>
-                    <div class="row">
-                      <div class="col">
-                            <label for="depart">Departure Date:</label>
-                            <input type="date" id="depart" name="depart" required>
-                        </div>
-                        <div class="col">
-                          <label for="passengers">Number of Passengers:</label>
-                          <div class="passenger-select">
-                              <input type="text" id="passengers" name="passengers" value="1" >
-                              <div class="arrow-up"></div>
-                              <div class="arrow-down"></div>
-                          </div>
-                      </div>
-                    </div>
-                    <button type="submit">Book Now</button>
-                </form>
+                <form action="searchresult.php" method="post">
+                                        <!-- Champs de sélection pour le départ -->
+                                        <div class="row">
+                                            <div class="col">
+                                                <label for="departure_location">Departure</label>
+                                                <select id="departure_location" name="departure_location">
+                                                    <option value="Paris - Charles de Gaulle">Paris - Charles de Gaulle</option>
+                                                    <option value="Londres - Heathrow">Londres - Heathrow</option>
+                                                    <option value="New York - JFK">New York - JFK</option>
+                                                    <option value="Los Angeles - LAX">Los Angeles - LAX</option>
+                                                    <option value="Tokyo - Haneda">Tokyo - Haneda</option>
+                                                </select>
+                                            </div>
+
+                                            <!-- Champ de saisie avec autocomplétion pour l'arrivée -->
+                                            <div class="col">
+                                                <label for="arrival_location">Arrival</label>
+                                                <!-- <input list="arrival_suggestions" id="arrival_location" name="arrival_location" placeholder="Enter arrival location" required /> -->
+                                                <select id="arrival_location" name="arrival_location">
+                                                    <option value="Paris - Charles de Gaulle">Paris - Charles de Gaulle</option>
+                                                    <option value="Londres - Heathrow">Londres - Heathrow</option>
+                                                    <option value="New York - JFK">New York - JFK</option>
+                                                    <option value="Los Angeles - LAX">Los Angeles - LAX</option>
+                                                    <option value="Tokyo - Haneda">Tokyo - Haneda</option>
+                                                    <option value="Madrid - MAD">Madrid - Barajas</option>
+                                                    <option value="Sydney - Kingsford Smith">Sydney - Kingsford Smith</option>
+                                                    <option value="Toronto - YYZ">Toronto - Pearson</option>
+                                                    <option value="Hong Kong - HKG">Hong Kong - Chek Lap Kok</option>
+                                                    <option value="San Francisco - SFO">San Francisco - SFO</option>
+                                                    <option value="Dubai - DXB">Dubai - DXB</option>
+                                                    <option value="Singapore - SIN">Singapore - Changi</option>
+                                                    <option value="Amsterdam - Schiphol">Amsterdam - Schiphol</option>
+                                                    <option value="Frankfurt - FRA">Frankfurt - FRA</option>
+                                                    <option value="Barcelona - BCN">Barcelona - BCN</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <!-- Autres champs du formulaire -->
+                                        <div class="row">
+                                            <div class="col">
+                                                <label for="rental_date_time">Date & Time</label>
+                                                <input type="datetime-local" id="rental_date_time" name="rental_date_time" required />
+                                            </div>
+                                            <div class="col">
+                                                <label for="passengers">Passengers</label>
+                                                <input type="number" id="passengers" name="passengers" min="1" value="1" />
+                                            </div>
+                                        </div>
+
+                                        <!-- Bouton de réservation -->
+                                        <button type="submit">Book Now</button>
+                                    </form>
             </div>
             </div>
     </section>

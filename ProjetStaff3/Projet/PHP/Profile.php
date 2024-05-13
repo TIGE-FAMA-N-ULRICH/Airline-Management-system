@@ -161,7 +161,63 @@ if (isset($_SESSION['user_id'])){
     </table>
 
 
-<h1>Booking Plane History</h1>
+    <?php
+
+    $query2 = "SELECT b.booking_id, rp.manufacturer, rp.model, rp.registration_number,
+           ld.location_name AS departure_location, la.location_name AS arrival_location,
+           b.rental_date, b.rental_time, b.total_price, b.status_s
+           FROM bookings b
+           JOIN Rental_planes rp ON b.plane_id = rp.rental_id
+           JOIN Locations ld ON b.departure_location = ld.location_id
+           JOIN Locations la ON b.arrival_location = la.location_id
+           WHERE b.customer_id = ?";
+          $stmt2 = $base->prepare($query2);
+          $stmt2->bindParam(1, $user_id);
+          $stmt2->execute();
+          $rental_reservations = $stmt2->fetchAll(PDO::FETCH_ASSOC);
+
+
+
+
+    ?>
+
+    <h1>Aircraft Rental History</h1>
+<table>
+    <thead>
+        <tr>
+            <th>Rental ID</th>
+            <th>Manufacturer</th>
+            <th>Model</th>
+            <th>Departure Location</th>
+            <th>Arrival Location</th>
+            <th>Rental Date</th>
+            <th>Rental Time</th>
+            <th>Total Price</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach ($rental_reservations as $rental): ?>
+        <tr>
+            <td><?php echo htmlspecialchars($rental['booking_id']); ?></td>
+            <td><?php echo htmlspecialchars($rental['manufacturer']); ?></td>
+            <td><?php echo htmlspecialchars($rental['model']); ?></td>
+            <td><?php echo htmlspecialchars($rental['departure_location']); ?></td>
+            <td><?php echo htmlspecialchars($rental['arrival_location']); ?></td>
+            <td><?php echo htmlspecialchars($rental['rental_date']); ?></td>
+            <td><?php echo htmlspecialchars($rental['rental_time']); ?></td>
+            <td>£<?php echo number_format($rental['total_price'], 2); ?></td>
+        </tr>
+        <?php endforeach; ?>
+    </tbody>
+</table>
+</section>
+
+
+
+
+
+
+
 
 
 

@@ -219,7 +219,7 @@
 </head>
 </head>
 <body>
-    <header>
+    <!-- <header>
         <nav class="navbar">
             <div class="container">
               <img src="../image/aircraft-removebg-preview.png" alt="Airline Management Logo" class="logo">
@@ -245,7 +245,7 @@
               </ul>
             </div>
           </nav>
-    </header>
+    </header> -->
 
     <section class="booking" style="display: flex; width: 100%; justify-content: center; align-items: center;">
         <div class="booking20" style="margin-bottom:0">
@@ -256,16 +256,16 @@
                 <div class="w-full " style="; width: 70%;">
 
                     <div tyle="flex">
-                        <h2 class="font-bold">Rent <b> <?= $plane['model'] ?></b></h2>
+                        <h2 class="font-bold">Payment Information</h2>
                     </div>
 
 
                     <div class="" style="font-size: 12px; margin-bottom: 50px; display: flex">
 
                         <div class="" style="margin: 1px; display: flex">  <!-- Afficher les détails de la réservation -->
-                            <!-- <div class="text-lg" style="margin: 20px">
+                            <div class="text-lg" style="margin: 20px">
                                 <b> <?= $plane['model'] ?></b>
-                            </div> -->
+                            </div>
                             <div class="text-lg" style="margin: 20px">
                                 <b> <?= $departure_location['location_name'] ?></b>
                             </div>
@@ -280,7 +280,7 @@
 
                         <div class="" style=" margin: 1px; display: flex">
                             <div class="text-lg" style="margin: 20px">
-                                <b><?= $rental_date ?>  <?= $rental_time ?></b>
+                                <b><?= $rental_date ?></b>
                             </div>
 
                             <div class="spe" style="">
@@ -320,7 +320,7 @@
 
                                 <div class="mb-4 w-full">
                                     <label for="card_number" class="text-gray-700"><b>Credit Card Number:</b></label>
-                                    <input type="cardnumber" maxlength="16" size="16" name="card_number" placeholder="1234 5678 9012 3456" class="text-lg" required>
+                                    <input type="text" name="card_number" placeholder="1234 5678 9012 3456" class="text-lg" required>
                                 </div>
 
                                 <div class="mb-4 w-full">
@@ -330,7 +330,7 @@
 
                                 <div class="mb-4 w-full">
                                     <label for="cvv" class="text-gray-700"><b>CVC:</b></label>
-                                    <input type="text"  maxlength="3" size="3" name="cvc" placeholder="123" class="text-lg" required>
+                                    <input type="text"  maxlength="4" size="3" name="cvv" placeholder="123" class="text-lg" required>
                                 </div>
 
                                 <button class="button00" type="submit" name="completepayment">
