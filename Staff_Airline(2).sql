@@ -490,23 +490,58 @@ VALUES
 -- Mise à jour de la Table des Avions pour inclure la localisation de base
 
 
-CREATE TABLE Bookings (
-  booking_id INT PRIMARY KEY AUTO_INCREMENT,
-  plane_id INT,  -- Clé étrangère liée à Rental_planes
-  customer_id INT,  -- Clé étrangère liée à Customers
-  booking_date DATETIME,  -- Date de la réservation
-  rental_start_date DATETIME,  -- Date de début de location
-  rental_end_date DATETIME,  -- Date de fin de location
-  departure_location INT,  -- Clé étrangère liée à Locations
-  arrival_location INT,  -- Clé étrangère liée à Locations
-  total_price DECIMAL(10, 2),  -- Coût total de la réservation
-  status ENUM('confirmed', 'pending', 'canceled'),  -- Statut de la réservation
-  notes TEXT,
-  FOREIGN KEY (plane_id) REFERENCES Rental_planes(rental_id) ON DELETE CASCADE,
-  FOREIGN KEY (customer_id) REFERENCES Users(user_id) ON DELETE CASCADE,
-  FOREIGN KEY (departure_location) REFERENCES Locations(location_id) ON DELETE CASCADE,
-  FOREIGN KEY (arrival_location) REFERENCES Locations(location_id) ON DELETE CASCADE
-);
+CREATE TABLE `bookings` (
+  `booking_id` int(11) NOT NULL,
+  `plane_id` int(11) DEFAULT NULL,
+  `customer_id` int(11) DEFAULT NULL,
+  `rental_date` date DEFAULT NULL,
+  `rental_time` time NOT NULL,
+  `departure_location` int(11) DEFAULT NULL,
+  `arrival_location` int(11) DEFAULT NULL,
+  `total_price` decimal(10,2) DEFAULT NULL,
+  `status_s` enum('confirmed','pending','canceled') DEFAULT NULL,
+  `notes` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Déchargement des données de la table `bookings`
+--
+
+
+
+--
+-- Index pour les tables déchargées
+--
+
+--
+-- Index pour la table `bookings`
+--
+ALTER TABLE `bookings`
+  ADD PRIMARY KEY (`booking_id`),
+  ADD KEY `plane_id` (`plane_id`),
+  ADD KEY `customer_id` (`customer_id`),
+  ADD KEY `departure_location` (`departure_location`),
+  ADD KEY `arrival_location` (`arrival_location`);
+
+--
+-- AUTO_INCREMENT pour les tables déchargées
+--
+
+--
+-- AUTO_INCREMENT pour la table `bookings`
+--
+ALTER TABLE `bookings`
+  MODIFY `booking_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+
+--
+ALTER TABLE `bookings`
+  ADD CONSTRAINT `bookings_ibfk_1` FOREIGN KEY (`plane_id`) REFERENCES `rental_planes` (`rental_id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `bookings_ibfk_2` FOREIGN KEY (`customer_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `bookings_ibfk_3` FOREIGN KEY (`departure_location`) REFERENCES `locations` (`location_id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `bookings_ibfk_4` FOREIGN KEY (`arrival_location`) REFERENCES `locations` (`location_id`) ON DELETE CASCADE;
+COMMIT;
+
+
 
 
 INSERT INTO Locations (location_name, latitude, longitude, country, city, airport_code, description) 
