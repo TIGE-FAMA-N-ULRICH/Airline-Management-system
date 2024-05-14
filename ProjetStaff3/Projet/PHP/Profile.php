@@ -86,10 +86,7 @@ if (isset($_SESSION['user_id'])){
             exit;
           }
           $reservations = $stmt->fetchAll(PDO::FETCH_ASSOC);
-          if (!$reservations) {
-              echo "No bookings found for this user.";
-          } else {
-          }
+
 
 
             ?>
@@ -116,6 +113,7 @@ if (isset($_SESSION['user_id'])){
               <th>Insurance</th>
               <th>Class</th>
               <th>Price</th>
+              <th>Ticket</th>
 
 
             </tr>
@@ -136,6 +134,7 @@ if (isset($_SESSION['user_id'])){
               <td><?php echo htmlspecialchars($reservation['insurance']); ?></td>
               <td><?php echo htmlspecialchars($reservation['class']); ?></td>
               <td>£<?php echo number_format($reservation['price'], 2); ?></td>
+              <td><a href="ticket_details.php?bookingf1_id=<?php echo htmlspecialchars($reservation['booking_id']); ?>"target="_blank">View Ticket</a></td>
 
           </tr>
 
@@ -153,6 +152,7 @@ if (isset($_SESSION['user_id'])){
               <td><?php echo htmlspecialchars($reservation['insurance']); ?></td>
               <td><?php echo htmlspecialchars($reservation['class']); ?></td>
               <td>-------------</td>
+              <td><a href="ticket_details.php?bookingf2_id=<?php echo htmlspecialchars($reservation['booking_id']); ?>"target="_blank">View Ticket</a></td>
 
           </tr>
           <?php endif; ?>
@@ -193,6 +193,7 @@ if (isset($_SESSION['user_id'])){
             <th>Rental Date</th>
             <th>Rental Time</th>
             <th>Total Price</th>
+            <th>Ticket</th>
         </tr>
     </thead>
     <tbody>
@@ -206,6 +207,7 @@ if (isset($_SESSION['user_id'])){
             <td><?php echo htmlspecialchars($rental['rental_date']); ?></td>
             <td><?php echo htmlspecialchars($rental['rental_time']); ?></td>
             <td>£<?php echo number_format($rental['total_price'], 2); ?></td>
+            <td><a href="ticket_details.php?bookingr_id=<?php echo htmlspecialchars($rental['booking_id']); ?>"target="_blank">View Ticket</a></td>
         </tr>
         <?php endforeach; ?>
     </tbody>

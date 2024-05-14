@@ -122,7 +122,7 @@ global $base;
 
             if ($class === 'business') {
                 $totalPrice = $totalPrice * 2;
-                    echo "<h1>Business Class</h1>";
+                  echo "<h1>Business Class</h1>";
                   echo"<section class='container1'>";
                   echo "<form action='Payement.php' method='post'>";
                   echo "<div class='container1'>
@@ -212,7 +212,8 @@ global $base;
                 echo "</form>";
                 echo "</div>";
                 echo"</section>";
-            } else {
+            }
+            else {
 
 
 

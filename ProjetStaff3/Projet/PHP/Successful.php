@@ -56,7 +56,7 @@ global $base;
 
              ?>
             <p>If this reservation concerned several passengers each of them will receive the details of the reservation in their email address.</p>
-            <p>Thank you for booking with Staff Airline.</p>
+            <p>Thank you for booking with Staff Airways.</p>
 
 
         </section>

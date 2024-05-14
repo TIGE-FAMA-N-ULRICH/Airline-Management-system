@@ -27,12 +27,12 @@ global $base;
 
 
       <div class="input-group">
-        <label for="password">password:</label>
+        <label for="password">Password:</label>
         <input type="password" name="password" id="password" placeholder="Your password">
       </div>
 
       <div class="input-group">
-        <label for="password">password:</label>
+        <label for="password">Password:</label>
         <input type="password" name="cpassword" id="cpassword" placeholder="Confirm your password"><br>
       </div>
 
