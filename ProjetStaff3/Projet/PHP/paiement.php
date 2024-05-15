@@ -230,9 +230,9 @@
                 <?php
                 if(isset($_SESSION['user_id'])){
                     $user_id = $_SESSION['user_id'];
-                  echo "<li><a href=\"\">Profile</a></li>";
+                  echo "<li><a href=\"Profile.php\">Profile</a></li>";
                   if($_SESSION['admin_id'] == 1){
-                    echo "<li><a href=\"\">Admin</a></li>";
+                    echo "<li><a href=\"../admin/home.php\">Admin</a></li>";
                   }
                   echo "<li><a href=\"Logout.php\">Logout</a></li>";
                 }
