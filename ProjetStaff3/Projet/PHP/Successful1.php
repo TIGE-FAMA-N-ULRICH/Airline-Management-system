@@ -4,15 +4,16 @@ include 'Base.php';
 global $base;
 ?>
 <!DOCTYPE html>
-<html lang="fr">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Log in</title>
-  <link rel="stylesheet" href="../css/pro.css">
-</head>
-<body>
-<header>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Staff Airline</title>
+    <link rel="stylesheet" href="../css/successful.css">
+
+  </head>
+
+  <body>
+  <header>
         <nav class="navbar">
             <div class="container">
               <img src="../image/aircraft-removebg-preview.png" alt="Airline Management Logo" class="logo">
@@ -38,65 +39,29 @@ global $base;
             </div>
           </nav>
     </header>
-    <section>
-  <div class="form-container">
-    <form class="login-form" action="#" method="POST">
-      <h2>Log in</h2>
-      <div class="input-group">
-        <label for="email">Email :</label>
-        <input type="email" name="email" id="email" placeholder="Your email">
-      </div>
 
-      <div class="input-group">
-        <label for="password">Password:</label>
-        <input type="password" name="password" id="password" placeholder="Your password"><br>
-      </div>
-      <div class="button-container">
-        <button type="submit" name="login" id="login" value="Log in" class="login-button">Log in</button>
-      </div>
-      <?php
-        if(isset($_POST['login'])){
-          $password = htmlspecialchars($_POST['password']);
-          $hash = password_hash($password, PASSWORD_BCRYPT);
-          $email = htmlspecialchars($_POST['email']);
 
-          if(!empty($email) AND !empty($password)){
-            $request = $base->prepare("SELECT * FROM Users WHERE email = :email");
-            $request->execute(['email' => $email]);
-            $exist = $request->rowCount();
+<section >
 
-            if($exist == 1){
-              $exist = $request->fetch();
+            <h2>Reservation Confirmation</h2>
+            <?php
+            if(isset($_SESSION['user_id'])){
+              echo "<p>You will find the details of your reservation in your profile and email address.</p>";
 
-              if (password_verify($password, $exist['password'])){
-                $_SESSION['user_id'] = $exist['user_id'];
-                $_SESSION['username'] = $exist['username'];
-                $_SESSION['email'] = $exist['email'];
-                $_SESSION['admin_id'] = $exist['admin_id'];
-                header("Location: Profile.php");
-              }
-              else{
-                $erreur = "<h3>This account does not exist</h3>";
-              }
             }
             else{
-              $erreur = "<h3>This account does not exist</h3>";
+              echo "<p>You will find the details of your reservation in your email address.</p>";
+
             }
-          }
-          else{
-            $erreur = "<h3>All fields must be completed</h3>";
-          }
-        }
-        if(isset($erreur)){
-          echo $erreur;
-          echo "<br>";
-        }
-      ?>
-      <h3 class="register-link">No account yet? Register here: <a href="Registration.php">Registration</a></h3>
-    </form>
-  </div>
-</section>
-<footer class="footer">
+
+             ?>
+            <p>If this reservation concerned several passengers each of them will receive the details of the reservation in their email address.</p>
+            <p>Thank you for booking with Staff Airways.</p>
+
+
+        </section>
+
+        <footer class="footer">
   <div class="footer-content">
     <div class="footer-section about">
       <img src="../image/aircraft-removebg-preview.png" alt="Aircraft Image">
@@ -131,5 +96,5 @@ global $base;
     &copy; 2024 Airline Management System | Designed by Nesrine - Caleb - Walid - Ulrich - Walker
   </div>
 </footer>
-</body>
+  </body>
 </html>
