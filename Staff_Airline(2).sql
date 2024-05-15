@@ -460,12 +460,6 @@ VALUES
 'A versatile business jet with advanced avionics and high-speed connectivity.', 
 'A luxurious business jet with advanced avionics.', 4.7, 100, '../Img/374015-dahj_WAS8037a-f8ea1e-large-1608632692.jpg'),
 
--- Plane 12: Embraer Legacy 450
-('Embraer', 'Legacy 450', 2017, 'NL450', 9, 2800, 4500.00, 'available', 'Avionics system updated in 2020.', 
-'Spacious cabin, advanced technology, high speed.', 
-'A high-speed business jet with a spacious cabin and advanced technology.', 
-'A high-speed business jet with a spacious cabin.', 4.6, 85, '../Img/p500-netjets-final-01-M4pN3v__wide__970.jpg'),
-
 -- Plane 13: Bombardier Challenger 350
 ('Bombardier', 'Challenger 350', 2016, 'NC350', 12, 3600, 5800.00, 'available', 'Engines serviced in 2019.', 
 'Spacious cabin, high-performance engines, advanced avionics.', 
